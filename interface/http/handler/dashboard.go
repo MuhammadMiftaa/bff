@@ -10,6 +10,7 @@ import (
 
 	dpb "github.com/MuhammadMiftaa/Refina-Protobuf/dashboard"
 	"github.com/gofiber/fiber/v2"
+	"google.golang.org/protobuf/proto"
 )
 
 type dashboardHandler struct {
@@ -25,9 +26,7 @@ func NewDashboardHandler(dc grpcClient.DashboardClient) *dashboardHandler {
 // GetUserFinancialSummary — POST /dashboard/financial-summary
 func (h *dashboardHandler) GetUserFinancialSummary(c *fiber.Ctx) error {
 	userData := c.Locals("user_data").(dto.UserData)
-	logger.Debug("User Data", map[string]any{
-		"user_data":  userData,
-	})
+
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 
 	var req dto.GetUserFinancialSummaryRequest
@@ -76,9 +75,7 @@ func (h *dashboardHandler) GetUserFinancialSummary(c *fiber.Ctx) error {
 // GetUserBalance — POST /dashboard/balance
 func (h *dashboardHandler) GetUserBalance(c *fiber.Ctx) error {
 	userData := c.Locals("user_data").(dto.UserData)
-	logger.Debug("User Data", map[string]any{
-		"user_data":  userData,
-	})
+
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 
 	var req dto.GetUserBalanceRequest
@@ -132,9 +129,7 @@ func (h *dashboardHandler) GetUserBalance(c *fiber.Ctx) error {
 // GetUserTransactions — POST /dashboard/transactions
 func (h *dashboardHandler) GetUserTransactions(c *fiber.Ctx) error {
 	userData := c.Locals("user_data").(dto.UserData)
-	logger.Debug("User Data", map[string]any{
-		"user_data":  userData,
-	})
+
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 
 	var req dto.GetUserTransactionsRequest
@@ -206,9 +201,7 @@ func (h *dashboardHandler) GetUserTransactions(c *fiber.Ctx) error {
 // GetUserNetWorthComposition — POST /dashboard/net-worth
 func (h *dashboardHandler) GetUserNetWorthComposition(c *fiber.Ctx) error {
 	userData := c.Locals("user_data").(dto.UserData)
-	logger.Debug("User Data", map[string]any{
-		"user_data":  userData,
-	})
+
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 
 	result, err := h.dashboard.GetUserNetWorthComposition(
@@ -228,6 +221,10 @@ func (h *dashboardHandler) GetUserNetWorthComposition(c *fiber.Ctx) error {
 			Message:    "Failed to get net worth composition",
 		})
 	}
+	
+	if proto.Equal(result, &dpb.NetWorthComposition{}) {
+		result = nil
+	}
 
 	return c.JSON(dto.APIResponse{
 		Status:     true,
@@ -240,9 +237,7 @@ func (h *dashboardHandler) GetUserNetWorthComposition(c *fiber.Ctx) error {
 // GetUserWallets — GET /dashboard/wallets
 func (h *dashboardHandler) GetUserWallets(c *fiber.Ctx) error {
 	userData := c.Locals("user_data").(dto.UserData)
-	logger.Debug("User Data", map[string]any{
-		"user_data":  userData,
-	})
+
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 
 	result, err := h.dashboard.GetUserWallets(context.Background(), userData.ID)
