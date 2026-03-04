@@ -1,10 +1,9 @@
 package handler
 
 import (
-	"context"
-
 	logger "refina-web-bff/config/log"
 	grpcClient "refina-web-bff/interface/grpc/client"
+	"refina-web-bff/interface/grpc/interceptor"
 	"refina-web-bff/internal/types/dto"
 	"refina-web-bff/internal/utils/data"
 
@@ -49,7 +48,9 @@ func (h *dashboardHandler) GetUserFinancialSummary(c *fiber.Ctx) error {
 		}
 	}
 
-	result, err := h.dashboard.GetUserFinancialSummary(context.Background(), grpcReq)
+	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
+	result, err := h.dashboard.GetUserFinancialSummary(ctx, grpcReq)
 	if err != nil {
 		logger.Error(data.LogGetFinancialSummaryFailed, map[string]any{
 			"service":    data.DashboardService,
@@ -103,7 +104,9 @@ func (h *dashboardHandler) GetUserBalance(c *fiber.Ctx) error {
 		}
 	}
 
-	result, err := h.dashboard.GetUserBalance(context.Background(), grpcReq)
+	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
+	result, err := h.dashboard.GetUserBalance(ctx, grpcReq)
 	if err != nil {
 		logger.Error(data.LogGetUserBalanceFailed, map[string]any{
 			"service":    data.DashboardService,
@@ -175,7 +178,9 @@ func (h *dashboardHandler) GetUserTransactions(c *fiber.Ctx) error {
 		grpcReq.DateOption = dateOpt
 	}
 
-	result, err := h.dashboard.GetUserTransactions(context.Background(), grpcReq)
+	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
+	result, err := h.dashboard.GetUserTransactions(ctx, grpcReq)
 	if err != nil {
 		logger.Error(data.LogGetUserTransactionsFailed, map[string]any{
 			"service":    data.DashboardService,
@@ -204,8 +209,10 @@ func (h *dashboardHandler) GetUserNetWorthComposition(c *fiber.Ctx) error {
 
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 
+	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
 	result, err := h.dashboard.GetUserNetWorthComposition(
-		context.Background(),
+		ctx,
 		&dpb.GetUserNetWorthCompositionRequest{UserId: userData.ID},
 	)
 	if err != nil {
@@ -221,7 +228,7 @@ func (h *dashboardHandler) GetUserNetWorthComposition(c *fiber.Ctx) error {
 			Message:    "Failed to get net worth composition",
 		})
 	}
-	
+
 	if proto.Equal(result, &dpb.NetWorthComposition{}) {
 		result = nil
 	}
@@ -240,7 +247,9 @@ func (h *dashboardHandler) GetUserWallets(c *fiber.Ctx) error {
 
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 
-	result, err := h.dashboard.GetUserWallets(context.Background(), userData.ID)
+	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
+	result, err := h.dashboard.GetUserWallets(ctx, userData.ID)
 	if err != nil {
 		logger.Error(data.LogGetUserWalletsFailed, map[string]any{
 			"service":    data.DashboardService,

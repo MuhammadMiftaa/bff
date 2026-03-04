@@ -1,11 +1,11 @@
 package handler
 
 import (
-	"context"
 	"fmt"
 
 	logger "refina-web-bff/config/log"
 	grpcClient "refina-web-bff/interface/grpc/client"
+	"refina-web-bff/interface/grpc/interceptor"
 	"refina-web-bff/internal/types/dto"
 	"refina-web-bff/internal/utils/data"
 
@@ -28,7 +28,9 @@ func (h *walletHandler) GetUserWallets(c *fiber.Ctx) error {
 	userData := c.Locals("user_data").(dto.UserData)
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 
-	result, err := h.wallet.GetUserWallets(context.Background(), userData.ID)
+	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
+	result, err := h.wallet.GetUserWallets(ctx, userData.ID)
 	if err != nil {
 		logger.Error(data.LogGetWalletsFailed, map[string]any{
 			"service":    data.WalletService,
@@ -56,7 +58,9 @@ func (h *walletHandler) GetWalletSummary(c *fiber.Ctx) error {
 	userData := c.Locals("user_data").(dto.UserData)
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 
-	result, err := h.wallet.GetWalletSummary(context.Background(), userData.ID)
+	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
+	result, err := h.wallet.GetWalletSummary(ctx, userData.ID)
 	if err != nil {
 		logger.Error(data.LogGetWalletSummaryFailed, map[string]any{
 			"service":    data.WalletService,
@@ -82,6 +86,7 @@ func (h *walletHandler) GetWalletSummary(c *fiber.Ctx) error {
 // GetWalletByID — GET /wallets/:id
 func (h *walletHandler) GetWalletByID(c *fiber.Ctx) error {
 	walletID := c.Params("id")
+	userData := c.Locals("user_data").(dto.UserData)
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 
 	if walletID == "" {
@@ -92,7 +97,9 @@ func (h *walletHandler) GetWalletByID(c *fiber.Ctx) error {
 		})
 	}
 
-	result, err := h.wallet.GetWalletByID(context.Background(), walletID)
+	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
+	result, err := h.wallet.GetWalletByID(ctx, walletID)
 	if err != nil {
 		logger.Error(data.LogGetWalletByIDFailed, map[string]any{
 			"service":    data.WalletService,
@@ -145,7 +152,9 @@ func (h *walletHandler) CreateWallet(c *fiber.Ctx) error {
 		Number:       req.Number,
 	}
 
-	result, err := h.wallet.CreateWallet(context.Background(), grpcReq)
+	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
+	result, err := h.wallet.CreateWallet(ctx, grpcReq)
 	if err != nil {
 		logger.Error(data.LogCreateWalletFailed, map[string]any{
 			"service":    data.WalletService,
@@ -171,6 +180,7 @@ func (h *walletHandler) CreateWallet(c *fiber.Ctx) error {
 // UpdateWallet — PUT /wallets/:id
 func (h *walletHandler) UpdateWallet(c *fiber.Ctx) error {
 	walletID := c.Params("id")
+	userData := c.Locals("user_data").(dto.UserData)
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 
 	if walletID == "" {
@@ -197,7 +207,9 @@ func (h *walletHandler) UpdateWallet(c *fiber.Ctx) error {
 		WalletTypeId: req.WalletTypeID,
 	}
 
-	result, err := h.wallet.UpdateWallet(context.Background(), grpcReq)
+	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
+	result, err := h.wallet.UpdateWallet(ctx, grpcReq)
 	if err != nil {
 		logger.Error(data.LogUpdateWalletFailed, map[string]any{
 			"service":    data.WalletService,
@@ -223,6 +235,7 @@ func (h *walletHandler) UpdateWallet(c *fiber.Ctx) error {
 // DeleteWallet — DELETE /wallets/:id
 func (h *walletHandler) DeleteWallet(c *fiber.Ctx) error {
 	walletID := c.Params("id")
+	userData := c.Locals("user_data").(dto.UserData)
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 
 	if walletID == "" {
@@ -233,7 +246,9 @@ func (h *walletHandler) DeleteWallet(c *fiber.Ctx) error {
 		})
 	}
 
-	_, err := h.wallet.DeleteWallet(context.Background(), walletID)
+	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
+	_, err := h.wallet.DeleteWallet(ctx, walletID)
 	if err != nil {
 		logger.Error(data.LogDeleteWalletFailed, map[string]any{
 			"service":    data.WalletService,
@@ -257,9 +272,12 @@ func (h *walletHandler) DeleteWallet(c *fiber.Ctx) error {
 
 // GetWalletTypes — GET /wallet-types
 func (h *walletHandler) GetWalletTypes(c *fiber.Ctx) error {
+	userData := c.Locals("user_data").(dto.UserData)
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 
-	result, err := h.wallet.GetWalletTypes(context.Background())
+	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
+	result, err := h.wallet.GetWalletTypes(ctx)
 	if err != nil {
 		logger.Error(data.LogGetWalletTypesFailed, map[string]any{
 			"service":    data.WalletService,

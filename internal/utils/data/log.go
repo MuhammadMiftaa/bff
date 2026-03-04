@@ -2,12 +2,13 @@ package data
 
 // Service field logging constants
 const (
-	MainService       = "main"
-	EnvService        = "env"
-	HTTPServerService = "http_server"
-	GRPCClientService = "grpc_client"
-	DashboardService  = "dashboard"
-	WalletService     = "wallet"
+	MainService        = "main"
+	EnvService         = "env"
+	HTTPServerService  = "http_server"
+	GRPCClientService  = "grpc_client"
+	DashboardService   = "dashboard"
+	WalletService      = "wallet"
+	TransactionService = "transaction"
 )
 
 // Message field logging constants
@@ -45,4 +46,16 @@ const (
 	LogDeleteWalletFailed     = "delete_wallet_failed"
 	LogGetWalletTypesFailed   = "get_wallet_types_failed"
 	LogGetWalletSummaryFailed = "get_wallet_summary_failed"
+
+	// transaction handler
+	LogGetTransactionsFailed    = "get_transactions_failed"
+	LogGetTransactionByIDFailed = "get_transaction_by_id_failed"
+	LogCreateTransactionFailed  = "create_transaction_failed"
+	LogCreateFundTransferFailed = "create_fund_transfer_failed"
+	LogUpdateTransactionFailed  = "update_transaction_failed"
+	LogDeleteTransactionFailed  = "delete_transaction_failed"
+	LogGetCategoriesFailed      = "get_categories_failed"
+	LogGetAttachmentsFailed     = "get_attachments_failed"
+	LogCreateAttachmentFailed   = "create_attachment_failed"
+	LogDeleteAttachmentFailed   = "delete_attachment_failed"
 )

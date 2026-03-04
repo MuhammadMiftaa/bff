@@ -1,0 +1,91 @@
+package client
+
+import (
+	"context"
+	"time"
+
+	tpb "github.com/MuhammadMiftaa/Refina-Protobuf/transaction"
+)
+
+type TransactionClient interface {
+	GetUserTransactions(ctx context.Context, req *tpb.GetUserTransactionsRequest) (*tpb.GetUserTransactionsResponse, error)
+	GetTransactionByID(ctx context.Context, transactionID string) (*tpb.TransactionDetail, error)
+	CreateTransaction(ctx context.Context, req *tpb.CreateTransactionRequest) (*tpb.TransactionDetail, error)
+	CreateFundTransfer(ctx context.Context, req *tpb.CreateFundTransferRequest) (*tpb.FundTransferResponse, error)
+	UpdateTransaction(ctx context.Context, req *tpb.UpdateTransactionRequest) (*tpb.TransactionDetail, error)
+	DeleteTransaction(ctx context.Context, transactionID string) (*tpb.TransactionDetail, error)
+	GetCategories(ctx context.Context, categoryType string) (*tpb.GetCategoriesResponse, error)
+	GetAttachmentsByTransactionID(ctx context.Context, transactionID string) (*tpb.GetAttachmentsResponse, error)
+	CreateAttachment(ctx context.Context, req *tpb.CreateAttachmentRequest) (*tpb.Attachment, error)
+	DeleteAttachment(ctx context.Context, attachmentID string) (*tpb.Attachment, error)
+}
+
+type transactionClientImpl struct {
+	client tpb.TransactionServiceClient
+}
+
+func NewTransactionClient(grpcClient tpb.TransactionServiceClient) TransactionClient {
+	return &transactionClientImpl{
+		client: grpcClient,
+	}
+}
+
+func (t *transactionClientImpl) GetUserTransactions(ctx context.Context, req *tpb.GetUserTransactionsRequest) (*tpb.GetUserTransactionsResponse, error) {
+	ctx, cancel := context.WithTimeout(ctx, 15*time.Second)
+	defer cancel()
+	return t.client.GetUserTransactions(ctx, req)
+}
+
+func (t *transactionClientImpl) GetTransactionByID(ctx context.Context, transactionID string) (*tpb.TransactionDetail, error) {
+	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
+	return t.client.GetTransactionByID(ctx, &tpb.TransactionID{Id: transactionID})
+}
+
+func (t *transactionClientImpl) CreateTransaction(ctx context.Context, req *tpb.CreateTransactionRequest) (*tpb.TransactionDetail, error) {
+	ctx, cancel := context.WithTimeout(ctx, 15*time.Second)
+	defer cancel()
+	return t.client.CreateTransaction(ctx, req)
+}
+
+func (t *transactionClientImpl) CreateFundTransfer(ctx context.Context, req *tpb.CreateFundTransferRequest) (*tpb.FundTransferResponse, error) {
+	ctx, cancel := context.WithTimeout(ctx, 15*time.Second)
+	defer cancel()
+	return t.client.CreateFundTransfer(ctx, req)
+}
+
+func (t *transactionClientImpl) UpdateTransaction(ctx context.Context, req *tpb.UpdateTransactionRequest) (*tpb.TransactionDetail, error) {
+	ctx, cancel := context.WithTimeout(ctx, 15*time.Second)
+	defer cancel()
+	return t.client.UpdateTransaction(ctx, req)
+}
+
+func (t *transactionClientImpl) DeleteTransaction(ctx context.Context, transactionID string) (*tpb.TransactionDetail, error) {
+	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
+	return t.client.DeleteTransaction(ctx, &tpb.TransactionID{Id: transactionID})
+}
+
+func (t *transactionClientImpl) GetCategories(ctx context.Context, categoryType string) (*tpb.GetCategoriesResponse, error) {
+	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
+	return t.client.GetCategories(ctx, &tpb.GetCategoriesRequest{Type: categoryType})
+}
+
+func (t *transactionClientImpl) GetAttachmentsByTransactionID(ctx context.Context, transactionID string) (*tpb.GetAttachmentsResponse, error) {
+	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
+	return t.client.GetAttachmentsByTransactionID(ctx, &tpb.TransactionID{Id: transactionID})
+}
+
+func (t *transactionClientImpl) CreateAttachment(ctx context.Context, req *tpb.CreateAttachmentRequest) (*tpb.Attachment, error) {
+	ctx, cancel := context.WithTimeout(ctx, 15*time.Second)
+	defer cancel()
+	return t.client.CreateAttachment(ctx, req)
+}
+
+func (t *transactionClientImpl) DeleteAttachment(ctx context.Context, attachmentID string) (*tpb.Attachment, error) {
+	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
+	return t.client.DeleteAttachment(ctx, &tpb.AttachmentID{Id: attachmentID})
+}

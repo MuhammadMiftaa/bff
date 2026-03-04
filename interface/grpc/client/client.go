@@ -7,9 +7,11 @@ import (
 
 	"refina-web-bff/config/env"
 	logger "refina-web-bff/config/log"
+	"refina-web-bff/interface/grpc/interceptor"
 	"refina-web-bff/internal/utils/data"
 
 	dpb "github.com/MuhammadMiftaa/Refina-Protobuf/dashboard"
+	tpb "github.com/MuhammadMiftaa/Refina-Protobuf/transaction"
 	wpb "github.com/MuhammadMiftaa/Refina-Protobuf/wallet"
 
 	"google.golang.org/grpc"
@@ -18,8 +20,9 @@ import (
 )
 
 type GRPCClientManager struct {
-	dashboardClient dpb.DashboardServiceClient
-	walletClient    wpb.WalletServiceClient
+	dashboardClient   dpb.DashboardServiceClient
+	walletClient      wpb.WalletServiceClient
+	transactionClient tpb.TransactionServiceClient
 
 	connections []*grpc.ClientConn
 	mu          sync.RWMutex
@@ -46,9 +49,10 @@ func (m *GRPCClientManager) SetupGRPCClient() error {
 	defer m.mu.Unlock()
 
 	logger.Info(data.LogGRPCClientSetupStarted, map[string]any{
-		"service":           data.GRPCClientService,
-		"dashboard_address": env.Cfg.GRPCConfig.DashboardAddress,
-		"wallet_address":    env.Cfg.GRPCConfig.WalletAddress,
+		"service":             data.GRPCClientService,
+		"dashboard_address":   env.Cfg.GRPCConfig.DashboardAddress,
+		"wallet_address":      env.Cfg.GRPCConfig.WalletAddress,
+		"transaction_address": env.Cfg.GRPCConfig.TransactionAddress,
 	})
 
 	if err := m.setupDashboardClient(env.Cfg.GRPCConfig.DashboardAddress); err != nil {
@@ -57,6 +61,10 @@ func (m *GRPCClientManager) SetupGRPCClient() error {
 
 	if err := m.setupWalletClient(env.Cfg.GRPCConfig.WalletAddress); err != nil {
 		return fmt.Errorf("failed to setup wallet client: %w", err)
+	}
+
+	if err := m.setupTransactionClient(env.Cfg.GRPCConfig.TransactionAddress); err != nil {
+		return fmt.Errorf("failed to setup transaction client: %w", err)
 	}
 
 	logger.Info(data.LogGRPCClientSetupSuccess, map[string]any{
@@ -88,6 +96,17 @@ func (m *GRPCClientManager) setupWalletClient(address string) error {
 	return nil
 }
 
+func (m *GRPCClientManager) setupTransactionClient(address string) error {
+	conn, err := m.createConnection(address)
+	if err != nil {
+		return err
+	}
+
+	m.transactionClient = tpb.NewTransactionServiceClient(conn)
+	m.connections = append(m.connections, conn)
+	return nil
+}
+
 func (m *GRPCClientManager) createConnection(address string) (*grpc.ClientConn, error) {
 	opts := []grpc.DialOption{
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
@@ -100,6 +119,8 @@ func (m *GRPCClientManager) createConnection(address string) (*grpc.ClientConn, 
 			grpc.MaxCallRecvMsgSize(10*1024*1024),
 			grpc.MaxCallSendMsgSize(10*1024*1024),
 		),
+		grpc.WithUnaryInterceptor(interceptor.UnaryClientInterceptor()),
+		grpc.WithStreamInterceptor(interceptor.StreamClientInterceptor()),
 	}
 
 	conn, err := grpc.NewClient(address, opts...)
@@ -122,6 +143,13 @@ func (m *GRPCClientManager) GetWalletClient() wpb.WalletServiceClient {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	return m.walletClient
+}
+
+// GetTransactionClient returns the transaction gRPC client
+func (m *GRPCClientManager) GetTransactionClient() tpb.TransactionServiceClient {
+	m.mu.RLock()
+	defer m.mu.RUnlock()
+	return m.transactionClient
 }
 
 // Close closes all gRPC connections

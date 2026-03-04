@@ -65,3 +65,46 @@ type UpdateWalletRequest struct {
 	WalletTypeID string `json:"wallet_type_id,omitempty"`
 	Number       string `json:"number,omitempty"`
 }
+
+// ── Transaction HTTP Request DTOs (from frontend) ──
+
+type CreateTransactionRequest struct {
+	WalletID        string   `json:"wallet_id" validate:"required"`
+	CategoryID      string   `json:"category_id" validate:"required"`
+	Amount          float64  `json:"amount" validate:"required"`
+	TransactionDate string   `json:"transaction_date" validate:"required"`
+	Description     string   `json:"description,omitempty"`
+	Attachments     []string `json:"attachments,omitempty"`
+}
+
+type CreateFundTransferRequest struct {
+	FromWalletID      string  `json:"from_wallet_id" validate:"required"`
+	ToWalletID        string  `json:"to_wallet_id" validate:"required"`
+	Amount            float64 `json:"amount" validate:"required"`
+	AdminFee          float64 `json:"admin_fee"`
+	CashOutCategoryID string  `json:"cash_out_category_id" validate:"required"`
+	CashInCategoryID  string  `json:"cash_in_category_id" validate:"required"`
+	TransactionDate   string  `json:"transaction_date" validate:"required"`
+	Description       string  `json:"description,omitempty"`
+}
+
+type UpdateTransactionRequest struct {
+	WalletID          string                      `json:"wallet_id,omitempty"`
+	CategoryID        string                      `json:"category_id,omitempty"`
+	Amount            float64                     `json:"amount,omitempty"`
+	TransactionDate   string                      `json:"transaction_date,omitempty"`
+	Description       string                      `json:"description,omitempty"`
+	AttachmentActions []UpdateAttachmentActionDTO `json:"attachment_actions,omitempty"`
+}
+
+type UpdateAttachmentActionDTO struct {
+	Status string   `json:"status"` // "add" or "delete"
+	Files  []string `json:"files"`
+}
+
+type CreateAttachmentRequest struct {
+	TransactionID string `json:"transaction_id" validate:"required"`
+	Image         string `json:"image" validate:"required"`
+	Format        string `json:"format" validate:"required"`
+	Size          int64  `json:"size" validate:"required"`
+}
