@@ -16,11 +16,13 @@ import (
 
 type transactionHandler struct {
 	transaction grpcClient.TransactionClient
+	wallet      grpcClient.WalletClient
 }
 
-func NewTransactionHandler(tc grpcClient.TransactionClient) *transactionHandler {
+func NewTransactionHandler(tc grpcClient.TransactionClient, wc grpcClient.WalletClient) *transactionHandler {
 	return &transactionHandler{
 		transaction: tc,
+		wallet:      wc,
 	}
 }
 
@@ -50,6 +52,30 @@ func (h *transactionHandler) GetUserTransactions(c *fiber.Ctx) error {
 
 	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
 
+	userWallets, err := h.wallet.GetUserWallets(ctx, userData.ID)
+	if err != nil {
+		logger.Error(data.LogGetWalletsFailed, map[string]any{
+			"service":    data.WalletService,
+			"request_id": requestID,
+			"user_id":    userData.ID,
+			"error":      err.Error(),
+		})
+		return c.Status(fiber.StatusInternalServerError).JSON(dto.APIResponse{
+			Status:     false,
+			StatusCode: 500,
+			Message:    "Failed to get user wallets",
+		})
+	}
+
+	walletIDs := make([]string, 0, len(userWallets.GetWallets()))
+	walletMap := make(map[string]string)
+	for _, wallet := range userWallets.GetWallets() {
+		walletIDs = append(walletIDs, wallet.GetId())
+		walletMap[wallet.GetId()] = wallet.GetName()
+	}
+
+	req.WalletIds = walletIDs
+
 	result, err := h.transaction.GetUserTransactions(ctx, req)
 	if err != nil {
 		logger.Error(data.LogGetTransactionsFailed, map[string]any{
@@ -63,6 +89,12 @@ func (h *transactionHandler) GetUserTransactions(c *fiber.Ctx) error {
 			StatusCode: 500,
 			Message:    "Failed to get transactions",
 		})
+	}
+
+	if result.GetTransactions() != nil && len(result.GetTransactions()) >= 0 {
+		for _, tx := range result.GetTransactions() {
+			tx.WalletName = walletMap[tx.GetWalletId()]
+		}
 	}
 
 	return c.JSON(dto.APIResponse{

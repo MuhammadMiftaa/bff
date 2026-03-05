@@ -44,8 +44,8 @@ func SetupHTTPServer(dc grpcClient.DashboardClient, wc grpcClient.WalletClient, 
 
 	// Register route groups
 	routes.DashboardRoutes(app, dc)
-	routes.WalletRoutes(app, wc)
-	routes.TransactionRoutes(app, tc)
+	routes.WalletRoutes(app, tc, wc)
+	routes.TransactionRoutes(app, tc, wc)
 
 	return app
 }

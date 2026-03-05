@@ -9,17 +9,20 @@ import (
 	"refina-web-bff/internal/types/dto"
 	"refina-web-bff/internal/utils/data"
 
+	tpb "github.com/MuhammadMiftaa/Refina-Protobuf/transaction"
 	wpb "github.com/MuhammadMiftaa/Refina-Protobuf/wallet"
 	"github.com/gofiber/fiber/v2"
 )
 
 type walletHandler struct {
-	wallet grpcClient.WalletClient
+	transaction grpcClient.TransactionClient
+	wallet      grpcClient.WalletClient
 }
 
-func NewWalletHandler(wc grpcClient.WalletClient) *walletHandler {
+func NewWalletHandler(tc grpcClient.TransactionClient, wc grpcClient.WalletClient) *walletHandler {
 	return &walletHandler{
-		wallet: wc,
+		transaction: tc,
+		wallet:      wc,
 	}
 }
 
@@ -43,6 +46,35 @@ func (h *walletHandler) GetUserWallets(c *fiber.Ctx) error {
 			StatusCode: 500,
 			Message:    "Failed to get user wallets",
 		})
+	}
+
+	walletIds := make([]string, 0, len(result.GetWallets()))
+	for _, wallet := range result.GetWallets() {
+		walletIds = append(walletIds, wallet.GetId())
+	}
+
+	userTransactions, err := h.transaction.GetUserTransactions(ctx, &tpb.GetUserTransactionsRequest{WalletIds: walletIds, PageSize: -1})
+	if err != nil {
+		logger.Error(data.LogGetTransactionsFailed, map[string]any{
+			"service":    data.TransactionService,
+			"request_id": requestID,
+			"user_id":    userData.ID,
+			"error":      err.Error(),
+		})
+		return c.Status(fiber.StatusInternalServerError).JSON(dto.APIResponse{
+			Status:     false,
+			StatusCode: 500,
+			Message:    "Failed to get transactions",
+		})
+	}
+
+	walletTrxCount := make(map[string]int32)
+	for _, tx := range userTransactions.GetTransactions() {
+		walletTrxCount[tx.GetWalletId()]++
+	}
+
+	for _, wallet := range result.GetWallets() {
+		wallet.TransactionCount = walletTrxCount[wallet.GetId()]
 	}
 
 	return c.JSON(dto.APIResponse{

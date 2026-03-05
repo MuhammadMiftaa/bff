@@ -8,8 +8,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func WalletRoutes(app *fiber.App, wc grpcClient.WalletClient) {
-	h := handler.NewWalletHandler(wc)
+func WalletRoutes(app *fiber.App, tc grpcClient.TransactionClient, wc grpcClient.WalletClient) {
+	h := handler.NewWalletHandler(tc, wc)
 
 	// Wallet CRUD routes
 	wallets := app.Group("/wallets")
