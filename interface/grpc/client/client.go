@@ -11,6 +11,7 @@ import (
 	"refina-web-bff/internal/utils/data"
 
 	dpb "github.com/MuhammadMiftaa/Refina-Protobuf/dashboard"
+	ipb "github.com/MuhammadMiftaa/Refina-Protobuf/investment"
 	tpb "github.com/MuhammadMiftaa/Refina-Protobuf/transaction"
 	wpb "github.com/MuhammadMiftaa/Refina-Protobuf/wallet"
 
@@ -23,6 +24,7 @@ type GRPCClientManager struct {
 	dashboardClient   dpb.DashboardServiceClient
 	walletClient      wpb.WalletServiceClient
 	transactionClient tpb.TransactionServiceClient
+	investmentClient  ipb.InvestmentServiceClient
 
 	connections []*grpc.ClientConn
 	mu          sync.RWMutex
@@ -53,6 +55,7 @@ func (m *GRPCClientManager) SetupGRPCClient() error {
 		"dashboard_address":   env.Cfg.GRPCConfig.DashboardAddress,
 		"wallet_address":      env.Cfg.GRPCConfig.WalletAddress,
 		"transaction_address": env.Cfg.GRPCConfig.TransactionAddress,
+		"investment_address":  env.Cfg.GRPCConfig.InvestmentAddress,
 	})
 
 	if err := m.setupDashboardClient(env.Cfg.GRPCConfig.DashboardAddress); err != nil {
@@ -65,6 +68,10 @@ func (m *GRPCClientManager) SetupGRPCClient() error {
 
 	if err := m.setupTransactionClient(env.Cfg.GRPCConfig.TransactionAddress); err != nil {
 		return fmt.Errorf("failed to setup transaction client: %w", err)
+	}
+
+	if err := m.setupInvestmentClient(env.Cfg.GRPCConfig.InvestmentAddress); err != nil {
+		return fmt.Errorf("failed to setup investment client: %w", err)
 	}
 
 	logger.Info(data.LogGRPCClientSetupSuccess, map[string]any{
@@ -103,6 +110,17 @@ func (m *GRPCClientManager) setupTransactionClient(address string) error {
 	}
 
 	m.transactionClient = tpb.NewTransactionServiceClient(conn)
+	m.connections = append(m.connections, conn)
+	return nil
+}
+
+func (m *GRPCClientManager) setupInvestmentClient(address string) error {
+	conn, err := m.createConnection(address)
+	if err != nil {
+		return err
+	}
+
+	m.investmentClient = ipb.NewInvestmentServiceClient(conn)
 	m.connections = append(m.connections, conn)
 	return nil
 }
@@ -150,6 +168,13 @@ func (m *GRPCClientManager) GetTransactionClient() tpb.TransactionServiceClient 
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	return m.transactionClient
+}
+
+// GetInvestmentClient returns the investment gRPC client
+func (m *GRPCClientManager) GetInvestmentClient() ipb.InvestmentServiceClient {
+	m.mu.RLock()
+	defer m.mu.RUnlock()
+	return m.investmentClient
 }
 
 // Close closes all gRPC connections

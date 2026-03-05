@@ -9,6 +9,7 @@ const (
 	DashboardService   = "dashboard"
 	WalletService      = "wallet"
 	TransactionService = "transaction"
+	InvestmentService  = "investment"
 )
 
 // Message field logging constants
@@ -58,4 +59,12 @@ const (
 	LogGetAttachmentsFailed     = "get_attachments_failed"
 	LogCreateAttachmentFailed   = "create_attachment_failed"
 	LogDeleteAttachmentFailed   = "delete_attachment_failed"
+
+	// investment handler
+	LogGetInvestmentsFailed       = "get_investments_failed"
+	LogGetInvestmentDetailFailed  = "get_investment_detail_failed"
+	LogCreateInvestmentFailed     = "create_investment_failed"
+	LogSellInvestmentFailed       = "sell_investment_failed"
+	LogGetInvestmentSummaryFailed = "get_investment_summary_failed"
+	LogGetAssetCodesFailed        = "get_asset_codes_failed"
 )

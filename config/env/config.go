@@ -20,6 +20,7 @@ type (
 		DashboardAddress   string
 		WalletAddress      string
 		TransactionAddress string
+		InvestmentAddress  string
 	}
 
 	Config struct {
@@ -66,6 +67,9 @@ func Load() ([]string, error) {
 	}
 	if Cfg.GRPCConfig.TransactionAddress, ok = os.LookupEnv("TRANSACTION_GRPC_ADDRESS"); !ok {
 		missing = append(missing, "TRANSACTION_GRPC_ADDRESS")
+	}
+	if Cfg.GRPCConfig.InvestmentAddress, ok = os.LookupEnv("INVESTMENT_GRPC_ADDRESS"); !ok {
+		missing = append(missing, "INVESTMENT_GRPC_ADDRESS")
 	}
 
 	return missing, nil

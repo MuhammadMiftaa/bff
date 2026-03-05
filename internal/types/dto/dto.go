@@ -108,3 +108,22 @@ type CreateAttachmentRequest struct {
 	Format        string `json:"format" validate:"required"`
 	Size          int64  `json:"size" validate:"required"`
 }
+
+// ── Investment HTTP Request DTOs (from frontend) ──
+
+type CreateInvestmentRequest struct {
+	Code             string  `json:"code" validate:"required"`
+	Quantity         float64 `json:"quantity" validate:"required"`
+	Amount           float64 `json:"amount" validate:"required"`
+	InitialValuation float64 `json:"initial_valuation"`
+	Date             string  `json:"date" validate:"required"`
+	Description      string  `json:"description,omitempty"`
+}
+
+type SellInvestmentRequest struct {
+	AssetCode   string  `json:"asset_code" validate:"required"`
+	Quantity    float64 `json:"quantity" validate:"required"`
+	Amount      float64 `json:"amount" validate:"required"`
+	Date        string  `json:"date" validate:"required"`
+	Description string  `json:"description,omitempty"`
+}

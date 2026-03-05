@@ -51,8 +51,11 @@ func main() {
 	// Create transaction client wrapper
 	transactionClient := grpcClient.NewTransactionClient(grpcMgr.GetTransactionClient())
 
+	// Create investment client wrapper
+	investmentClient := grpcClient.NewInvestmentClient(grpcMgr.GetInvestmentClient())
+
 	// Set up the HTTP server (Fiber)
-	app := router.SetupHTTPServer(dashboardClient, walletClient, transactionClient)
+	app := router.SetupHTTPServer(dashboardClient, walletClient, transactionClient, investmentClient)
 	logger.Info(data.LogHTTPServerStarted, map[string]any{
 		"service":  data.HTTPServerService,
 		"port":     env.Cfg.Server.HTTPPort,

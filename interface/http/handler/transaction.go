@@ -34,11 +34,10 @@ func (h *transactionHandler) GetUserTransactions(c *fiber.Ctx) error {
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 
 	// Build gRPC request from query params
-	page, _ := strconv.Atoi(c.Query("page", "1"))
 	pageSize, _ := strconv.Atoi(c.Query("page_size", "10"))
+	cursorAmount, _ := strconv.ParseFloat(c.Query("cursor_amount", "0"), 64)
 
 	req := &tpb.GetUserTransactionsRequest{
-		Page:         int32(page),
 		PageSize:     int32(pageSize),
 		SortBy:       c.Query("sort_by"),
 		SortOrder:    c.Query("sort_order"),
@@ -48,6 +47,9 @@ func (h *transactionHandler) GetUserTransactions(c *fiber.Ctx) error {
 		CategoryType: c.Query("category_type"),
 		DateFrom:     c.Query("date_from"),
 		DateTo:       c.Query("date_to"),
+		Cursor:       c.Query("cursor"),
+		CursorAmount: cursorAmount,
+		CursorDate:   c.Query("cursor_date"),
 	}
 
 	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
