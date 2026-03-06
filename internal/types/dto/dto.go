@@ -118,6 +118,7 @@ type CreateInvestmentRequest struct {
 	InitialValuation float64 `json:"initial_valuation"`
 	Date             string  `json:"date" validate:"required"`
 	Description      string  `json:"description,omitempty"`
+	WalletId         string  `json:"wallet_id" validate:"required"`
 }
 
 type SellInvestmentRequest struct {
@@ -126,4 +127,5 @@ type SellInvestmentRequest struct {
 	Amount      float64 `json:"amount" validate:"required"`
 	Date        string  `json:"date" validate:"required"`
 	Description string  `json:"description,omitempty"`
+	WalletId    string  `json:"wallet_id" validate:"required"`
 }

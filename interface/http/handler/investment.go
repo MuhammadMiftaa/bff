@@ -130,6 +130,7 @@ func (h *investmentHandler) CreateInvestment(c *fiber.Ctx) error {
 		InitialValuation: body.InitialValuation,
 		Date:             body.Date,
 		Description:      body.Description,
+		WalletId:         body.WalletId,
 	})
 	if err != nil {
 		logger.Error(data.LogCreateInvestmentFailed, map[string]any{
@@ -176,6 +177,7 @@ func (h *investmentHandler) SellInvestment(c *fiber.Ctx) error {
 		Amount:      body.Amount,
 		Date:        body.Date,
 		Description: body.Description,
+		WalletId:    body.WalletId,
 	})
 	if err != nil {
 		logger.Error(data.LogSellInvestmentFailed, map[string]any{
