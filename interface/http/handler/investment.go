@@ -171,7 +171,7 @@ func (h *investmentHandler) SellInvestment(c *fiber.Ctx) error {
 
 	result, err := h.investment.SellInvestment(ctx, &ipb.SellInvestmentRequest{
 		UserId:      userData.ID,
-		Assetcode:   body.AssetCode,
+		AssetCode:   body.AssetCode,
 		Quantity:    body.Quantity,
 		Amount:      body.Amount,
 		Date:        body.Date,
