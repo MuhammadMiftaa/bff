@@ -19,11 +19,12 @@ import (
 
 type investmentHandler struct {
 	investment grpcClient.InvestmentClient
+	wallet     grpcClient.WalletClient
 	cache      cache.Cache
 }
 
-func NewInvestmentHandler(ic grpcClient.InvestmentClient, c cache.Cache) *investmentHandler {
-	return &investmentHandler{investment: ic, cache: c}
+func NewInvestmentHandler(ic grpcClient.InvestmentClient, wc grpcClient.WalletClient, c cache.Cache) *investmentHandler {
+	return &investmentHandler{investment: ic, wallet: wc, cache: c}
 }
 
 // GetUserInvestments — GET /investments
@@ -158,7 +159,40 @@ func (h *investmentHandler) CreateInvestment(c *fiber.Ctx) error {
 		})
 	}
 
+	// ── Wallet ownership & balance validation ──
 	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
+	wallet, err := h.wallet.GetWalletByID(ctx, body.WalletId)
+	if err != nil {
+		logger.Error(data.LogGetWalletByIDFailed, map[string]any{
+			"service":    data.WalletService,
+			"request_id": requestID,
+			"user_id":    userData.ID,
+			"wallet_id":  body.WalletId,
+			"error":      err.Error(),
+		})
+		return c.Status(fiber.StatusNotFound).JSON(dto.APIResponse{
+			Status:     false,
+			StatusCode: 404,
+			Message:    "Wallet not found",
+		})
+	}
+
+	if wallet.GetUserId() != userData.ID {
+		return c.Status(fiber.StatusForbidden).JSON(dto.APIResponse{
+			Status:     false,
+			StatusCode: 403,
+			Message:    "You do not have access to this wallet",
+		})
+	}
+
+	if body.Amount > 0 && wallet.GetBalance() < body.Amount {
+		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
+			Status:     false,
+			StatusCode: 400,
+			Message:    fmt.Sprintf("Insufficient wallet balance. Available: %.2f, Required: %.2f", wallet.GetBalance(), body.Amount),
+		})
+	}
 
 	result, err := h.investment.CreateInvestment(ctx, &ipb.CreateInvestmentRequest{
 		UserId:           userData.ID,

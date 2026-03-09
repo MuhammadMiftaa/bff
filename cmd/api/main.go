@@ -71,7 +71,7 @@ func main() {
 	investmentClient := grpcClient.NewInvestmentClient(grpcMgr.GetInvestmentClient())
 
 	// Set up the HTTP server (Fiber)
-	app := router.SetupHTTPServer(dashboardClient, walletClient, transactionClient, investmentClient, appCache)
+	app := router.SetupHTTPServer(dashboardClient, walletClient, transactionClient, investmentClient, appCache, redisClient)
 	logger.Info(data.LogHTTPServerStarted, map[string]any{
 		"service":  data.HTTPServerService,
 		"port":     env.Cfg.Server.HTTPPort,

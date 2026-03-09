@@ -9,9 +9,10 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/redis/go-redis/v9"
 )
 
-func SetupHTTPServer(dc grpcClient.DashboardClient, wc grpcClient.WalletClient, tc grpcClient.TransactionClient, ic grpcClient.InvestmentClient, c cache.Cache) *fiber.App {
+func SetupHTTPServer(dc grpcClient.DashboardClient, wc grpcClient.WalletClient, tc grpcClient.TransactionClient, ic grpcClient.InvestmentClient, c cache.Cache, redisClient *redis.Client) *fiber.App {
 	app := fiber.New(fiber.Config{
 		AppName:      "Refina BFF",
 		ServerHeader: "Refina",
@@ -33,6 +34,7 @@ func SetupHTTPServer(dc grpcClient.DashboardClient, wc grpcClient.WalletClient, 
 	app.Use(middleware.RequestIDMiddleware())
 	app.Use(middleware.CORSMiddleware())
 	app.Use(middleware.LoggerMiddleware())
+	app.Use(middleware.RateLimiterMiddleware(redisClient))
 
 	// Health check
 	app.Get("/test", func(c *fiber.Ctx) error {
@@ -47,7 +49,7 @@ func SetupHTTPServer(dc grpcClient.DashboardClient, wc grpcClient.WalletClient, 
 	routes.DashboardRoutes(app, dc, c)
 	routes.WalletRoutes(app, tc, wc, c)
 	routes.TransactionRoutes(app, tc, wc, c)
-	routes.InvestmentRoutes(app, ic, c)
+	routes.InvestmentRoutes(app, ic, wc, c)
 	routes.CacheRoutes(app, c)
 
 	return app

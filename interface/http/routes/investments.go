@@ -9,8 +9,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func InvestmentRoutes(app *fiber.App, ic grpcClient.InvestmentClient, c cache.Cache) {
-	h := handler.NewInvestmentHandler(ic, c)
+func InvestmentRoutes(app *fiber.App, ic grpcClient.InvestmentClient, wc grpcClient.WalletClient, c cache.Cache) {
+	h := handler.NewInvestmentHandler(ic, wc, c)
 
 	investments := app.Group("/investments")
 	investments.Use(middleware.AuthMiddleware())

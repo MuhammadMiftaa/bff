@@ -207,6 +207,41 @@ func (h *transactionHandler) CreateTransaction(c *fiber.Ctx) error {
 		})
 	}
 
+	// ── Wallet ownership & balance validation ──
+	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
+	wallet, err := h.wallet.GetWalletByID(ctx, req.WalletID)
+	if err != nil {
+		logger.Error(data.LogGetWalletByIDFailed, map[string]any{
+			"service":    data.WalletService,
+			"request_id": requestID,
+			"user_id":    userData.ID,
+			"wallet_id":  req.WalletID,
+			"error":      err.Error(),
+		})
+		return c.Status(fiber.StatusNotFound).JSON(dto.APIResponse{
+			Status:     false,
+			StatusCode: 404,
+			Message:    "Wallet not found",
+		})
+	}
+
+	if wallet.GetUserId() != userData.ID {
+		return c.Status(fiber.StatusForbidden).JSON(dto.APIResponse{
+			Status:     false,
+			StatusCode: 403,
+			Message:    "You do not have access to this wallet",
+		})
+	}
+
+	if req.Amount > 0 && wallet.GetBalance() < req.Amount {
+		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
+			Status:     false,
+			StatusCode: 400,
+			Message:    fmt.Sprintf("Insufficient wallet balance. Available: %.2f, Required: %.2f", wallet.GetBalance(), req.Amount),
+		})
+	}
+
 	grpcReq := &tpb.CreateTransactionRequest{
 		UserId:             userData.ID,
 		WalletId:           req.WalletID,
@@ -217,8 +252,6 @@ func (h *transactionHandler) CreateTransaction(c *fiber.Ctx) error {
 		Attachments:        req.Attachments,
 		IsWalletNotCreated: false,
 	}
-
-	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
 
 	result, err := h.transaction.CreateTransaction(ctx, grpcReq)
 	if err != nil {
