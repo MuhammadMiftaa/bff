@@ -271,6 +271,8 @@ func (h *walletHandler) UpdateWallet(c *fiber.Ctx) error {
 	userData := c.Locals("user_data").(dto.UserData)
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 
+	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
 	if walletID == "" {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
@@ -295,7 +297,43 @@ func (h *walletHandler) UpdateWallet(c *fiber.Ctx) error {
 		WalletTypeId: req.WalletTypeID,
 	}
 
-	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+	wallet, err := h.wallet.GetWalletByID(ctx, walletID)
+	if err != nil {
+		logger.Error(data.LogGetWalletByIDFailed, map[string]any{
+			"service":    data.WalletService,
+			"request_id": requestID,
+			"wallet_id":  walletID,
+			"error":      err.Error(),
+		})
+		return c.Status(fiber.StatusInternalServerError).JSON(dto.APIResponse{
+			Status:     false,
+			StatusCode: 500,
+			Message:    "Failed to get wallet",
+		})
+	}
+
+	if wallet == nil {
+		logger.Error(data.LogGetWalletByIDFailed, map[string]any{
+			"service":    data.WalletService,
+			"request_id": requestID,
+			"wallet_id":  walletID,
+		})
+		return c.Status(fiber.StatusNotFound).JSON(dto.APIResponse{
+			Status:     false,
+			StatusCode: 404,
+			Message:    "Wallet not found",
+		})
+	}
+
+	if wallet.GetUserId() != userData.ID {
+		return c.Status(fiber.StatusForbidden).JSON(dto.APIResponse{
+			Status:     false,
+			StatusCode: 403,
+			Message:    "You are not allowed to update this wallet",
+		})
+	}
+
+	grpcReq.Balance = wallet.GetBalance()
 
 	result, err := h.wallet.UpdateWallet(ctx, grpcReq)
 	if err != nil {

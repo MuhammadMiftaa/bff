@@ -234,14 +234,6 @@ func (h *transactionHandler) CreateTransaction(c *fiber.Ctx) error {
 		})
 	}
 
-	if req.Amount > 0 && wallet.GetBalance() < req.Amount {
-		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
-			Status:     false,
-			StatusCode: 400,
-			Message:    fmt.Sprintf("Insufficient wallet balance. Available: %.2f, Required: %.2f", wallet.GetBalance(), req.Amount),
-		})
-	}
-
 	grpcReq := &tpb.CreateTransactionRequest{
 		UserId:             userData.ID,
 		WalletId:           req.WalletID,
