@@ -21,6 +21,7 @@ type (
 		WalletAddress      string
 		TransactionAddress string
 		InvestmentAddress  string
+		ProfileAddress     string
 	}
 
 	RedisConfig struct {
@@ -77,6 +78,9 @@ func Load() ([]string, error) {
 	}
 	if Cfg.GRPCConfig.InvestmentAddress, ok = os.LookupEnv("INVESTMENT_GRPC_ADDRESS"); !ok {
 		missing = append(missing, "INVESTMENT_GRPC_ADDRESS")
+	}
+	if Cfg.GRPCConfig.ProfileAddress, ok = os.LookupEnv("PROFILE_GRPC_ADDRESS"); !ok {
+		missing = append(missing, "PROFILE_GRPC_ADDRESS")
 	}
 
 	// Redis

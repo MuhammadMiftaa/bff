@@ -70,8 +70,11 @@ func main() {
 	// Create investment client wrapper
 	investmentClient := grpcClient.NewInvestmentClient(grpcMgr.GetInvestmentClient())
 
+	// Create profile client wrapper
+	profileClient := grpcClient.NewProfileClient(grpcMgr.GetProfileClient())
+
 	// Set up the HTTP server (Fiber)
-	app := router.SetupHTTPServer(dashboardClient, walletClient, transactionClient, investmentClient, appCache, redisClient)
+	app := router.SetupHTTPServer(dashboardClient, walletClient, transactionClient, investmentClient, profileClient, appCache, redisClient)
 	logger.Info(data.LogHTTPServerStarted, map[string]any{
 		"service":  data.HTTPServerService,
 		"port":     env.Cfg.Server.HTTPPort,

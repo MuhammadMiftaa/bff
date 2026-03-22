@@ -3,10 +3,11 @@ module refina-web-bff
 go 1.24.4
 
 require (
-	github.com/MuhammadMiftaa/Refina-Protobuf v1.9.0
+	github.com/MuhammadMiftaa/Refina-Protobuf v1.12.0
 	github.com/gofiber/fiber/v2 v2.52.6
 	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/joho/godotenv v1.5.1
+	github.com/redis/go-redis/v9 v9.18.0
 	github.com/rs/xid v1.6.0
 	github.com/sirupsen/logrus v1.9.4
 	google.golang.org/grpc v1.78.0
@@ -22,7 +23,6 @@ require (
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
-	github.com/redis/go-redis/v9 v9.18.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.58.0 // indirect

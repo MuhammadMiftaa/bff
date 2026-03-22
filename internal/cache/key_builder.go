@@ -88,6 +88,16 @@ func InvestmentDetail(invID string) string {
 	return fmt.Sprintf("inv:%s:detail", invID)
 }
 
+// ── Profile Keys ──
+
+func ProfileData(userID string) string {
+	return fmt.Sprintf("profile:%s:data", userID)
+}
+
+func ProfileAllPattern(userID string) string {
+	return fmt.Sprintf("profile:%s:*", userID)
+}
+
 // ── Invalidation Patterns ──
 
 func DashboardAllPattern(userID string) string {

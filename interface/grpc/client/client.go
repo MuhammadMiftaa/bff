@@ -12,6 +12,7 @@ import (
 
 	dpb "github.com/MuhammadMiftaa/Refina-Protobuf/dashboard"
 	ipb "github.com/MuhammadMiftaa/Refina-Protobuf/investment"
+	ppb "github.com/MuhammadMiftaa/Refina-Protobuf/profile"
 	tpb "github.com/MuhammadMiftaa/Refina-Protobuf/transaction"
 	wpb "github.com/MuhammadMiftaa/Refina-Protobuf/wallet"
 
@@ -25,6 +26,7 @@ type GRPCClientManager struct {
 	walletClient      wpb.WalletServiceClient
 	transactionClient tpb.TransactionServiceClient
 	investmentClient  ipb.InvestmentServiceClient
+	profileClient     ppb.ProfileServiceClient
 
 	connections []*grpc.ClientConn
 	mu          sync.RWMutex
@@ -56,6 +58,7 @@ func (m *GRPCClientManager) SetupGRPCClient() error {
 		"wallet_address":      env.Cfg.GRPCConfig.WalletAddress,
 		"transaction_address": env.Cfg.GRPCConfig.TransactionAddress,
 		"investment_address":  env.Cfg.GRPCConfig.InvestmentAddress,
+		"profile_address":     env.Cfg.GRPCConfig.ProfileAddress,
 	})
 
 	if err := m.setupDashboardClient(env.Cfg.GRPCConfig.DashboardAddress); err != nil {
@@ -72,6 +75,10 @@ func (m *GRPCClientManager) SetupGRPCClient() error {
 
 	if err := m.setupInvestmentClient(env.Cfg.GRPCConfig.InvestmentAddress); err != nil {
 		return fmt.Errorf("failed to setup investment client: %w", err)
+	}
+
+	if err := m.setupProfileClient(env.Cfg.GRPCConfig.ProfileAddress); err != nil {
+		return fmt.Errorf("failed to setup profile client: %w", err)
 	}
 
 	logger.Info(data.LogGRPCClientSetupSuccess, map[string]any{
@@ -121,6 +128,17 @@ func (m *GRPCClientManager) setupInvestmentClient(address string) error {
 	}
 
 	m.investmentClient = ipb.NewInvestmentServiceClient(conn)
+	m.connections = append(m.connections, conn)
+	return nil
+}
+
+func (m *GRPCClientManager) setupProfileClient(address string) error {
+	conn, err := m.createConnection(address)
+	if err != nil {
+		return err
+	}
+
+	m.profileClient = ppb.NewProfileServiceClient(conn)
 	m.connections = append(m.connections, conn)
 	return nil
 }
@@ -175,6 +193,13 @@ func (m *GRPCClientManager) GetInvestmentClient() ipb.InvestmentServiceClient {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
 	return m.investmentClient
+}
+
+// GetProfileClient returns the profile gRPC client
+func (m *GRPCClientManager) GetProfileClient() ppb.ProfileServiceClient {
+	m.mu.RLock()
+	defer m.mu.RUnlock()
+	return m.profileClient
 }
 
 // Close closes all gRPC connections

@@ -12,7 +12,15 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
-func SetupHTTPServer(dc grpcClient.DashboardClient, wc grpcClient.WalletClient, tc grpcClient.TransactionClient, ic grpcClient.InvestmentClient, c cache.Cache, redisClient *redis.Client) *fiber.App {
+func SetupHTTPServer(
+	dc grpcClient.DashboardClient,
+	wc grpcClient.WalletClient,
+	tc grpcClient.TransactionClient,
+	ic grpcClient.InvestmentClient,
+	pc grpcClient.ProfileClient,
+	c cache.Cache,
+	redisClient *redis.Client,
+) *fiber.App {
 	app := fiber.New(fiber.Config{
 		AppName:      "Refina BFF",
 		ServerHeader: "Refina",
@@ -50,6 +58,7 @@ func SetupHTTPServer(dc grpcClient.DashboardClient, wc grpcClient.WalletClient, 
 	routes.WalletRoutes(app, tc, wc, c)
 	routes.TransactionRoutes(app, tc, wc, c)
 	routes.InvestmentRoutes(app, ic, wc, c)
+	routes.ProfileRoutes(app, pc, c)
 	routes.CacheRoutes(app, c)
 
 	return app

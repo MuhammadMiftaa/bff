@@ -11,6 +11,7 @@ const (
 	WalletService      = "wallet"
 	TransactionService = "transaction"
 	InvestmentService  = "investment"
+	ProfileService     = "profile"
 )
 
 // Message field logging constants
@@ -68,6 +69,16 @@ const (
 	LogSellInvestmentFailed       = "sell_investment_failed"
 	LogGetInvestmentSummaryFailed = "get_investment_summary_failed"
 	LogGetAssetCodesFailed        = "get_asset_codes_failed"
+
+	// profile handler
+	LogGetProfileSuccess    = "get_profile_success"
+	LogGetProfileFailed     = "get_profile_failed"
+	LogUpdateProfileSuccess = "update_profile_success"
+	LogUpdateProfileFailed  = "update_profile_failed"
+	LogUploadPhotoSuccess   = "upload_photo_success"
+	LogUploadPhotoFailed    = "upload_photo_failed"
+	LogDeletePhotoSuccess   = "delete_photo_success"
+	LogDeletePhotoFailed    = "delete_photo_failed"
 
 	// cache
 	LogCacheHit            = "cache_hit"
