@@ -2,32 +2,33 @@ package env
 
 import (
 	"os"
+	"strconv"
 
 	"github.com/joho/godotenv"
 )
 
 type (
 	Server struct {
-		Mode     string
-		HTTPPort string
+		Mode     string `env:"MODE"`
+		HTTPPort string `env:"HTTP_PORT"`
 	}
 
 	Auth struct {
-		JWTSecret string
+		JWTSecret string `env:"JWT_SECRET"`
 	}
 
 	GRPCConfig struct {
-		DashboardAddress   string
-		WalletAddress      string
-		TransactionAddress string
-		InvestmentAddress  string
-		ProfileAddress     string
+		DashboardAddress   string `env:"DASHBOARD_GRPC_ADDRESS"`
+		WalletAddress      string `env:"WALLET_GRPC_ADDRESS"`
+		TransactionAddress string `env:"TRANSACTION_GRPC_ADDRESS"`
+		InvestmentAddress  string `env:"INVESTMENT_GRPC_ADDRESS"`
+		ProfileAddress     string `env:"PROFILE_GRPC_ADDRESS"`
 	}
 
 	RedisConfig struct {
-		Address  string
-		Password string
-		DB       string
+		Address  string `env:"REDIS_ADDRESS"`
+		Password string `env:"REDIS_PASSWORD"`
+		DB       string `env:"REDIS_DB"`
 	}
 
 	Config struct {
@@ -40,55 +41,64 @@ type (
 
 var Cfg Config
 
-func Load() ([]string, error) {
-	var ok bool
-	var missing []string
+const errEnvNotSet = " env is not set"
 
+// lookupEnv reads an OS environment variable.
+// If missing, it appends a message to the missing slice.
+func lookupEnv(key string, dest *string, missing *[]string) {
+	if val, ok := os.LookupEnv(key); ok {
+		*dest = val
+	} else {
+		*missing = append(*missing, key+errEnvNotSet)
+	}
+}
+
+// lookupEnvInt reads an integer environment variable (optional for Redis DB).
+// Currently not used in this config, but kept for consistency with the pattern.
+func lookupEnvInt(key string, dest *int, missing *[]string) {
+	val, ok := os.LookupEnv(key)
+	if !ok {
+		*missing = append(*missing, key+errEnvNotSet)
+		return
+	}
+	n, err := strconv.Atoi(val)
+	if err != nil {
+		*missing = append(*missing, key+" must be integer, got "+val)
+		return
+	}
+	*dest = n
+}
+
+func Load() ([]string, error) {
 	// Try loading from /app/.env first (Docker), then local .env
 	if _, err := os.Stat("/app/.env"); err == nil {
 		if err := godotenv.Load("/app/.env"); err != nil {
 			return nil, err
 		}
 	} else {
-		_ = godotenv.Load() // best-effort local .env
+		_ = godotenv.Load() // best-effort for local development
 	}
+
+	var missing []string
 
 	// Server
-	if Cfg.Server.Mode, ok = os.LookupEnv("MODE"); !ok {
-		missing = append(missing, "MODE")
-	}
-	if Cfg.Server.HTTPPort, ok = os.LookupEnv("HTTP_PORT"); !ok {
-		missing = append(missing, "HTTP_PORT")
-	}
+	lookupEnv("MODE", &Cfg.Server.Mode, &missing)
+	lookupEnv("HTTP_PORT", &Cfg.Server.HTTPPort, &missing)
 
 	// Auth
-	if Cfg.Auth.JWTSecret, ok = os.LookupEnv("JWT_SECRET"); !ok {
-		missing = append(missing, "JWT_SECRET")
-	}
+	lookupEnv("JWT_SECRET", &Cfg.Auth.JWTSecret, &missing)
 
 	// gRPC downstream services
-	if Cfg.GRPCConfig.DashboardAddress, ok = os.LookupEnv("DASHBOARD_GRPC_ADDRESS"); !ok {
-		missing = append(missing, "DASHBOARD_GRPC_ADDRESS")
-	}
-	if Cfg.GRPCConfig.WalletAddress, ok = os.LookupEnv("WALLET_GRPC_ADDRESS"); !ok {
-		missing = append(missing, "WALLET_GRPC_ADDRESS")
-	}
-	if Cfg.GRPCConfig.TransactionAddress, ok = os.LookupEnv("TRANSACTION_GRPC_ADDRESS"); !ok {
-		missing = append(missing, "TRANSACTION_GRPC_ADDRESS")
-	}
-	if Cfg.GRPCConfig.InvestmentAddress, ok = os.LookupEnv("INVESTMENT_GRPC_ADDRESS"); !ok {
-		missing = append(missing, "INVESTMENT_GRPC_ADDRESS")
-	}
-	if Cfg.GRPCConfig.ProfileAddress, ok = os.LookupEnv("PROFILE_GRPC_ADDRESS"); !ok {
-		missing = append(missing, "PROFILE_GRPC_ADDRESS")
-	}
+	lookupEnv("DASHBOARD_GRPC_ADDRESS", &Cfg.GRPCConfig.DashboardAddress, &missing)
+	lookupEnv("WALLET_GRPC_ADDRESS", &Cfg.GRPCConfig.WalletAddress, &missing)
+	lookupEnv("TRANSACTION_GRPC_ADDRESS", &Cfg.GRPCConfig.TransactionAddress, &missing)
+	lookupEnv("INVESTMENT_GRPC_ADDRESS", &Cfg.GRPCConfig.InvestmentAddress, &missing)
+	lookupEnv("PROFILE_GRPC_ADDRESS", &Cfg.GRPCConfig.ProfileAddress, &missing)
 
 	// Redis
-	if Cfg.RedisConfig.Address, ok = os.LookupEnv("REDIS_ADDRESS"); !ok {
-		missing = append(missing, "REDIS_ADDRESS")
-	}
-	Cfg.RedisConfig.Password, _ = os.LookupEnv("REDIS_PASSWORD") // optional
-	Cfg.RedisConfig.DB, _ = os.LookupEnv("REDIS_DB")             // optional, defaults to "0"
+	lookupEnv("REDIS_ADDRESS", &Cfg.RedisConfig.Address, &missing)
+	Cfg.RedisConfig.Password, _ = os.LookupEnv("REDIS_PASSWORD")
+	Cfg.RedisConfig.DB, _ = os.LookupEnv("REDIS_DB")
 
 	return missing, nil
 }

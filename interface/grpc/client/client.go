@@ -1,6 +1,7 @@
 package client
 
 import (
+	"context"
 	"fmt"
 	"sync"
 	"time"
@@ -202,22 +203,21 @@ func (m *GRPCClientManager) GetProfileClient() ppb.ProfileServiceClient {
 	return m.profileClient
 }
 
-// Close closes all gRPC connections
-func (m *GRPCClientManager) Close() {
+// Shutdown closes all gRPC connections gracefully
+func (m *GRPCClientManager) Shutdown(ctx context.Context) error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
-	for _, conn := range m.connections {
+	var errors []error
+	for i, conn := range m.connections {
 		if err := conn.Close(); err != nil {
-			logger.Error("failed to close gRPC connection", map[string]any{
-				"service": data.GRPCClientService,
-				"error":   err.Error(),
-			})
+			errors = append(errors, fmt.Errorf("failed to close connection %d: %w", i, err))
 		}
 	}
 
-	logger.Info(data.LogGRPCClientClosed, map[string]any{
-		"service":     data.GRPCClientService,
-		"connections": len(m.connections),
-	})
+	if len(errors) > 0 {
+		return fmt.Errorf("errors during shutdown: %v", errors)
+	}
+
+	return nil
 }

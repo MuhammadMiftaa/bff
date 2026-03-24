@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"os"
 	"os/signal"
@@ -32,10 +33,54 @@ func init() {
 	}
 }
 
-func main() {
-	startTime := time.Now()
+// shutdownHTTP gracefully shuts down the Fiber HTTP server.
+// Extracted to reduce cognitive complexity (go:S3776).
+func shutdownHTTP(app interface{ ShutdownWithTimeout(time.Duration) error }, errors map[string]any) {
+	if app == nil {
+		return
+	}
+	if err := app.ShutdownWithTimeout(30 * time.Second); err != nil {
+		logger.Error(data.LogHTTPServerShutdownFailed, map[string]any{
+			"service": data.HTTPServerService,
+			"error":   err.Error(),
+		})
+		errors["http_error"] = true
+	}
+}
 
-	// Set up Redis cache
+// shutdownGRPC gracefully closes gRPC client connections.
+// Extracted to reduce cognitive complexity (go:S3776).
+func shutdownGRPC(ctx context.Context, grpcMgr *grpcClient.GRPCClientManager, errors map[string]any) {
+	if grpcMgr == nil {
+		return
+	}
+	if err := grpcMgr.Shutdown(ctx); err != nil {
+		logger.Error(data.LogGRPCClientShutdownFailed, map[string]any{
+			"service": data.GRPCClientService,
+			"error":   err.Error(),
+		})
+		errors["grpc_error"] = true
+	}
+}
+
+// shutdownCache closes the Redis cache connection.
+// Extracted to reduce cognitive complexity (go:S3776).
+func shutdownCache(appCache cache.Cache, errors map[string]any) {
+	if appCache == nil {
+		return
+	}
+	if err := appCache.Close(); err != nil {
+		logger.Error(data.LogRedisCloseFailed, map[string]any{
+			"service": data.CacheService,
+			"error":   err.Error(),
+		})
+		errors["cache_error"] = true
+	}
+}
+
+func main() {
+	// Setup Redis Cache
+	startTime := time.Now()
 	redisClient, err := redisSetup.NewRedisClient(redisSetup.RedisConfig{
 		Address:  env.Cfg.RedisConfig.Address,
 		Password: env.Cfg.RedisConfig.Password,
@@ -48,8 +93,13 @@ func main() {
 		})
 	}
 	appCache := cache.NewRedisCache(redisClient)
+	logger.Info(data.LogRedisSetupSuccess, map[string]any{
+		"service":  data.CacheService,
+		"duration": utils.Ms(time.Since(startTime)),
+	})
 
-	// Set up gRPC clients
+	// Setup gRPC Clients
+	startTime = time.Now()
 	grpcMgr := grpcClient.GetManager()
 	if err := grpcMgr.SetupGRPCClient(); err != nil {
 		logger.Fatal(data.LogGRPCClientSetupFailed, map[string]any{
@@ -57,69 +107,59 @@ func main() {
 			"error":   err.Error(),
 		})
 	}
-
-	// Create dashboard client wrapper
-	dashboardClient := grpcClient.NewDashboardClient(grpcMgr.GetDashboardClient())
-
-	// Create wallet client wrapper
-	walletClient := grpcClient.NewWalletClient(grpcMgr.GetWalletClient())
-
-	// Create transaction client wrapper
-	transactionClient := grpcClient.NewTransactionClient(grpcMgr.GetTransactionClient())
-
-	// Create investment client wrapper
-	investmentClient := grpcClient.NewInvestmentClient(grpcMgr.GetInvestmentClient())
-
-	// Create profile client wrapper
-	profileClient := grpcClient.NewProfileClient(grpcMgr.GetProfileClient())
-
-	// Set up the HTTP server (Fiber)
-	app := router.SetupHTTPServer(dashboardClient, walletClient, transactionClient, investmentClient, profileClient, appCache, redisClient)
-	logger.Info(data.LogHTTPServerStarted, map[string]any{
-		"service":  data.HTTPServerService,
-		"port":     env.Cfg.Server.HTTPPort,
+	logger.Info(data.LogGRPCClientSetupSuccess, map[string]any{
+		"service":  data.GRPCClientService,
 		"duration": utils.Ms(time.Since(startTime)),
 	})
 
-	// Start server in a goroutine
-	go func() {
-		if err := app.Listen(":" + env.Cfg.Server.HTTPPort); err != nil {
-			logger.Fatal(data.LogHTTPServerStartFailed, map[string]any{
-				"service": data.HTTPServerService,
-				"error":   err.Error(),
-			})
-		}
-	}()
+	// Create gRPC client wrappers
+	dashboardClient := grpcClient.NewDashboardClient(grpcMgr.GetDashboardClient())
+	walletClient := grpcClient.NewWalletClient(grpcMgr.GetWalletClient())
+	transactionClient := grpcClient.NewTransactionClient(grpcMgr.GetTransactionClient())
+	investmentClient := grpcClient.NewInvestmentClient(grpcMgr.GetInvestmentClient())
+	profileClient := grpcClient.NewProfileClient(grpcMgr.GetProfileClient())
 
-	// Graceful shutdown
+	// Setup HTTP Server
+	startTime = time.Now()
+	app := router.SetupHTTPServer(dashboardClient, walletClient, transactionClient, investmentClient, profileClient, appCache, redisClient)
+	if app != nil {
+		go func() {
+			if err := app.Listen(":" + env.Cfg.Server.HTTPPort); err != nil {
+				logger.Fatal(data.LogHTTPServerStartFailed, map[string]any{
+					"service": data.HTTPServerService,
+					"error":   err.Error(),
+				})
+			}
+		}()
+		logger.Info(data.LogHTTPServerStarted, map[string]any{
+			"service":  data.HTTPServerService,
+			"port":     env.Cfg.Server.HTTPPort,
+			"duration": utils.Ms(time.Since(startTime)),
+		})
+	}
+
+	// Wait for shutdown signal
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
-
 	logger.Info(data.LogShutdownSignalReceived, map[string]any{"service": data.MainService})
 
+	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer shutdownCancel()
+
 	startTime = time.Now()
+	shutdownErrors := map[string]any{"service": data.MainService}
 
-	// Close gRPC connections
-	grpcMgr.Close()
+	shutdownHTTP(app, shutdownErrors)
+	shutdownGRPC(shutdownCtx, grpcMgr, shutdownErrors)
+	shutdownCache(appCache, shutdownErrors)
 
-	// Close Redis connection
-	if err := appCache.Close(); err != nil {
-		logger.Error("redis_close_failed", map[string]any{
-			"service": data.CacheService,
-			"error":   err.Error(),
+	if len(shutdownErrors) > 1 {
+		logger.Info(data.LogShutdownCompletedWithErrors, shutdownErrors)
+	} else {
+		logger.Info(data.LogShutdownCompleted, map[string]any{
+			"service":  data.MainService,
+			"duration": utils.Ms(time.Since(startTime)),
 		})
 	}
-
-	if err := app.ShutdownWithTimeout(30 * time.Second); err != nil {
-		logger.Error(data.LogHTTPServerShutdownFailed, map[string]any{
-			"service": data.HTTPServerService,
-			"error":   err.Error(),
-		})
-	}
-
-	logger.Info(data.LogShutdownCompleted, map[string]any{
-		"service":  data.MainService,
-		"duration": utils.Ms(time.Since(startTime)),
-	})
 }

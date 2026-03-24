@@ -25,14 +25,27 @@ const (
 	LogHTTPServerShutdownFailed = "http_server_shutdown_failed"
 
 	// grpc client
-	LogGRPCClientSetupStarted = "grpc_client_setup_started"
-	LogGRPCClientSetupSuccess = "grpc_client_setup_success"
-	LogGRPCClientSetupFailed  = "grpc_client_setup_failed"
-	LogGRPCClientClosed       = "grpc_client_closed"
+	LogGRPCClientSetupStarted    = "grpc_client_setup_started"
+	LogGRPCClientSetupSuccess    = "grpc_client_setup_success"
+	LogGRPCClientSetupFailed     = "grpc_client_setup_failed"
+	LogGRPCClientClosed          = "grpc_client_closed"
+	LogGRPCClientShutdownFailed  = "grpc_client_shutdown_failed"
+
+	// cache / redis
+	LogRedisSetupFailed  = "redis_setup_failed"
+	LogRedisSetupSuccess = "redis_setup_success"
+	LogRedisCloseFailed  = "redis_close_failed" 
+	LogCacheHit            = "cache_hit"
+	LogCacheMiss           = "cache_miss"
+	LogCacheSetFailed      = "cache_set_failed"
+	LogCacheGetFailed      = "cache_get_failed"
+	LogCacheInvalidated    = "cache_invalidated"
+	LogCacheInvalidateFail = "cache_invalidate_failed"
 
 	// shutdown
-	LogShutdownSignalReceived = "shutdown_signal_received"
-	LogShutdownCompleted      = "shutdown_completed"
+	LogShutdownSignalReceived      = "shutdown_signal_received"
+	LogShutdownCompleted           = "shutdown_completed"
+	LogShutdownCompletedWithErrors = "shutdown_completed_with_errors"
 
 	// dashboard handler
 	LogGetFinancialSummaryFailed    = "get_financial_summary_failed"
@@ -79,13 +92,4 @@ const (
 	LogUploadPhotoFailed    = "upload_photo_failed"
 	LogDeletePhotoSuccess   = "delete_photo_success"
 	LogDeletePhotoFailed    = "delete_photo_failed"
-
-	// cache
-	LogCacheHit            = "cache_hit"
-	LogCacheMiss           = "cache_miss"
-	LogCacheSetFailed      = "cache_set_failed"
-	LogCacheGetFailed      = "cache_get_failed"
-	LogCacheInvalidated    = "cache_invalidated"
-	LogCacheInvalidateFail = "cache_invalidate_failed"
-	LogRedisSetupFailed    = "redis_setup_failed"
 )
