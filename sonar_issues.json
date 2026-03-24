@@ -1,0 +1,2041 @@
+{
+  "total": 27,
+  "p": 1,
+  "ps": 500,
+  "paging": {
+    "pageIndex": 1,
+    "pageSize": 500,
+    "total": 27
+  },
+  "effortTotal": 178,
+  "debtTotal": 178,
+  "issues": [
+    {
+      "key": "AZzv3W5xP-CYkGMXdFHR",
+      "rule": "go:S1192",
+      "severity": "CRITICAL",
+      "component": "aurify-backend_Aurify-Web-BFF:internal/utils/grpc_error.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "line": 101,
+      "hash": "3d7fd0f0e765e8552deef79d8a1e08f1",
+      "textRange": {
+        "startLine": 101,
+        "endLine": 101,
+        "startOffset": 86,
+        "endOffset": 122
+      },
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:internal/utils/grpc_error.go",
+              "textRange": {
+                "startLine": 102,
+                "endLine": 102,
+                "startOffset": 79,
+                "endOffset": 115
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:internal/utils/grpc_error.go",
+              "textRange": {
+                "startLine": 183,
+                "endLine": 183,
+                "startOffset": 9,
+                "endOffset": 45
+              },
+              "msg": "Duplication"
+            }
+          ]
+        }
+      ],
+      "status": "OPEN",
+      "message": "Define a constant instead of duplicating this literal \"Service is temporarily unavailable\" 3 times.",
+      "effort": "6min",
+      "debt": "6min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "design"
+      ],
+      "creationDate": "2026-03-12T04:09:32+0000",
+      "updateDate": "2026-03-15T04:59:28+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "DISTINCT",
+      "cleanCodeAttributeCategory": "ADAPTABLE",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "HIGH"
+        }
+      ],
+      "issueStatus": "OPEN",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W8WP-CYkGMXdFHr",
+      "rule": "docker:S6596",
+      "severity": "MAJOR",
+      "component": "aurify-backend_Aurify-Web-BFF:Dockerfile",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "line": 12,
+      "hash": "72cc33f7273acdc5b24e7ebaa1860886",
+      "textRange": {
+        "startLine": 12,
+        "endLine": 12,
+        "startOffset": 5,
+        "endOffset": 18
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Use a specific version tag for the image.",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "madmifta77@gmail.com",
+      "tags": [],
+      "creationDate": "2026-03-08T13:37:48+0000",
+      "updateDate": "2026-03-15T04:59:28+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "LOGICAL",
+      "cleanCodeAttributeCategory": "INTENTIONAL",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "MEDIUM"
+        }
+      ],
+      "issueStatus": "OPEN",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W74P-CYkGMXdFHe",
+      "rule": "go:S3776",
+      "severity": "CRITICAL",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/cache.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "line": 30,
+      "hash": "5ae86ece1f08fd1340eeb9ec96a9ad18",
+      "textRange": {
+        "startLine": 30,
+        "endLine": 30,
+        "startOffset": 23,
+        "endOffset": 35
+      },
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/cache.go",
+              "textRange": {
+                "startLine": 45,
+                "endLine": 45,
+                "startOffset": 2,
+                "endOffset": 8
+              },
+              "msg": "+2 (incl 1 for nesting)"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/cache.go",
+              "textRange": {
+                "startLine": 74,
+                "endLine": 74,
+                "startOffset": 1,
+                "endOffset": 3
+              },
+              "msg": "+1"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/cache.go",
+              "textRange": {
+                "startLine": 77,
+                "endLine": 77,
+                "startOffset": 2,
+                "endOffset": 5
+              },
+              "msg": "+2 (incl 1 for nesting)"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/cache.go",
+              "textRange": {
+                "startLine": 78,
+                "endLine": 78,
+                "startOffset": 3,
+                "endOffset": 5
+              },
+              "msg": "+3 (incl 2 for nesting)"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/cache.go",
+              "textRange": {
+                "startLine": 83,
+                "endLine": 83,
+                "startOffset": 2,
+                "endOffset": 4
+              },
+              "msg": "+2 (incl 1 for nesting)"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/cache.go",
+              "textRange": {
+                "startLine": 94,
+                "endLine": 94,
+                "startOffset": 1,
+                "endOffset": 4
+              },
+              "msg": "+1"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/cache.go",
+              "textRange": {
+                "startLine": 99,
+                "endLine": 99,
+                "startOffset": 1,
+                "endOffset": 4
+              },
+              "msg": "+1"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/cache.go",
+              "textRange": {
+                "startLine": 101,
+                "endLine": 101,
+                "startOffset": 2,
+                "endOffset": 4
+              },
+              "msg": "+2 (incl 1 for nesting)"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/cache.go",
+              "textRange": {
+                "startLine": 103,
+                "endLine": 103,
+                "startOffset": 4,
+                "endOffset": 8
+              },
+              "msg": "+1"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/cache.go",
+              "textRange": {
+                "startLine": 106,
+                "endLine": 106,
+                "startOffset": 2,
+                "endOffset": 4
+              },
+              "msg": "+2 (incl 1 for nesting)"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/cache.go",
+              "textRange": {
+                "startLine": 118,
+                "endLine": 118,
+                "startOffset": 1,
+                "endOffset": 3
+              },
+              "msg": "+1"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/cache.go",
+              "textRange": {
+                "startLine": 130,
+                "endLine": 130,
+                "startOffset": 1,
+                "endOffset": 3
+              },
+              "msg": "+1"
+            }
+          ]
+        }
+      ],
+      "status": "OPEN",
+      "message": "Refactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.",
+      "effort": "9min",
+      "debt": "9min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "brain-overload"
+      ],
+      "creationDate": "2026-03-08T02:40:58+0000",
+      "updateDate": "2026-03-15T04:59:28+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "FOCUSED",
+      "cleanCodeAttributeCategory": "ADAPTABLE",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "HIGH"
+        }
+      ],
+      "issueStatus": "OPEN",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W8AP-CYkGMXdFHi",
+      "rule": "go:S1192",
+      "severity": "CRITICAL",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "line": 58,
+      "hash": "8552f25269997a866d4c7018ae622f78",
+      "textRange": {
+        "startLine": 58,
+        "endLine": 58,
+        "startOffset": 24,
+        "endOffset": 42
+      },
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+              "textRange": {
+                "startLine": 138,
+                "endLine": 138,
+                "startOffset": 24,
+                "endOffset": 42
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+              "textRange": {
+                "startLine": 209,
+                "endLine": 209,
+                "startOffset": 24,
+                "endOffset": 42
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+              "textRange": {
+                "startLine": 291,
+                "endLine": 291,
+                "startOffset": 24,
+                "endOffset": 42
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+              "textRange": {
+                "startLine": 346,
+                "endLine": 346,
+                "startOffset": 24,
+                "endOffset": 42
+              },
+              "msg": "Duplication"
+            }
+          ]
+        }
+      ],
+      "status": "OPEN",
+      "message": "Define a constant instead of duplicating this literal \"application/json\" 5 times.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "design"
+      ],
+      "creationDate": "2026-03-08T02:32:03+0000",
+      "updateDate": "2026-03-15T04:59:28+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "DISTINCT",
+      "cleanCodeAttributeCategory": "ADAPTABLE",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "HIGH"
+        }
+      ],
+      "issueStatus": "OPEN",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W8AP-CYkGMXdFHk",
+      "rule": "go:S1192",
+      "severity": "CRITICAL",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "line": 58,
+      "hash": "8552f25269997a866d4c7018ae622f78",
+      "textRange": {
+        "startLine": 58,
+        "endLine": 58,
+        "startOffset": 8,
+        "endOffset": 22
+      },
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+              "textRange": {
+                "startLine": 138,
+                "endLine": 138,
+                "startOffset": 8,
+                "endOffset": 22
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+              "textRange": {
+                "startLine": 209,
+                "endLine": 209,
+                "startOffset": 8,
+                "endOffset": 22
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+              "textRange": {
+                "startLine": 291,
+                "endLine": 291,
+                "startOffset": 8,
+                "endOffset": 22
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+              "textRange": {
+                "startLine": 346,
+                "endLine": 346,
+                "startOffset": 8,
+                "endOffset": 22
+              },
+              "msg": "Duplication"
+            }
+          ]
+        }
+      ],
+      "status": "OPEN",
+      "message": "Define a constant instead of duplicating this literal \"Content-Type\" 5 times.",
+      "effort": "10min",
+      "debt": "10min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "design"
+      ],
+      "creationDate": "2026-03-08T02:32:03+0000",
+      "updateDate": "2026-03-15T04:59:28+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "DISTINCT",
+      "cleanCodeAttributeCategory": "ADAPTABLE",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "HIGH"
+        }
+      ],
+      "issueStatus": "OPEN",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W7xP-CYkGMXdFHc",
+      "rule": "go:S1192",
+      "severity": "CRITICAL",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/investment.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "line": 54,
+      "hash": "8552f25269997a866d4c7018ae622f78",
+      "textRange": {
+        "startLine": 54,
+        "endLine": 54,
+        "startOffset": 24,
+        "endOffset": 42
+      },
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/investment.go",
+              "textRange": {
+                "startLine": 110,
+                "endLine": 110,
+                "startOffset": 24,
+                "endOffset": 42
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/investment.go",
+              "textRange": {
+                "startLine": 296,
+                "endLine": 296,
+                "startOffset": 24,
+                "endOffset": 42
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/investment.go",
+              "textRange": {
+                "startLine": 343,
+                "endLine": 343,
+                "startOffset": 24,
+                "endOffset": 42
+              },
+              "msg": "Duplication"
+            }
+          ]
+        }
+      ],
+      "status": "OPEN",
+      "message": "Define a constant instead of duplicating this literal \"application/json\" 4 times.",
+      "effort": "8min",
+      "debt": "8min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "design"
+      ],
+      "creationDate": "2026-03-08T02:32:03+0000",
+      "updateDate": "2026-03-15T04:59:28+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "DISTINCT",
+      "cleanCodeAttributeCategory": "ADAPTABLE",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "HIGH"
+        }
+      ],
+      "issueStatus": "OPEN",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W7xP-CYkGMXdFHd",
+      "rule": "go:S1192",
+      "severity": "CRITICAL",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/investment.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "line": 54,
+      "hash": "8552f25269997a866d4c7018ae622f78",
+      "textRange": {
+        "startLine": 54,
+        "endLine": 54,
+        "startOffset": 8,
+        "endOffset": 22
+      },
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/investment.go",
+              "textRange": {
+                "startLine": 110,
+                "endLine": 110,
+                "startOffset": 8,
+                "endOffset": 22
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/investment.go",
+              "textRange": {
+                "startLine": 296,
+                "endLine": 296,
+                "startOffset": 8,
+                "endOffset": 22
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/investment.go",
+              "textRange": {
+                "startLine": 343,
+                "endLine": 343,
+                "startOffset": 8,
+                "endOffset": 22
+              },
+              "msg": "Duplication"
+            }
+          ]
+        }
+      ],
+      "status": "OPEN",
+      "message": "Define a constant instead of duplicating this literal \"Content-Type\" 4 times.",
+      "effort": "8min",
+      "debt": "8min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "design"
+      ],
+      "creationDate": "2026-03-08T02:32:03+0000",
+      "updateDate": "2026-03-15T04:59:28+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "DISTINCT",
+      "cleanCodeAttributeCategory": "ADAPTABLE",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "HIGH"
+        }
+      ],
+      "issueStatus": "OPEN",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W7pP-CYkGMXdFHX",
+      "rule": "go:S1192",
+      "severity": "CRITICAL",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "line": 67,
+      "hash": "8552f25269997a866d4c7018ae622f78",
+      "textRange": {
+        "startLine": 67,
+        "endLine": 67,
+        "startOffset": 8,
+        "endOffset": 22
+      },
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+              "textRange": {
+                "startLine": 154,
+                "endLine": 154,
+                "startOffset": 8,
+                "endOffset": 22
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+              "textRange": {
+                "startLine": 472,
+                "endLine": 472,
+                "startOffset": 8,
+                "endOffset": 22
+              },
+              "msg": "Duplication"
+            }
+          ]
+        }
+      ],
+      "status": "OPEN",
+      "message": "Define a constant instead of duplicating this literal \"Content-Type\" 3 times.",
+      "effort": "6min",
+      "debt": "6min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "design"
+      ],
+      "creationDate": "2026-03-08T02:32:03+0000",
+      "updateDate": "2026-03-15T04:59:28+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "DISTINCT",
+      "cleanCodeAttributeCategory": "ADAPTABLE",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "HIGH"
+        }
+      ],
+      "issueStatus": "OPEN",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W7pP-CYkGMXdFHY",
+      "rule": "go:S1192",
+      "severity": "CRITICAL",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "line": 67,
+      "hash": "8552f25269997a866d4c7018ae622f78",
+      "textRange": {
+        "startLine": 67,
+        "endLine": 67,
+        "startOffset": 24,
+        "endOffset": 42
+      },
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+              "textRange": {
+                "startLine": 154,
+                "endLine": 154,
+                "startOffset": 24,
+                "endOffset": 42
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+              "textRange": {
+                "startLine": 472,
+                "endLine": 472,
+                "startOffset": 24,
+                "endOffset": 42
+              },
+              "msg": "Duplication"
+            }
+          ]
+        }
+      ],
+      "status": "OPEN",
+      "message": "Define a constant instead of duplicating this literal \"application/json\" 3 times.",
+      "effort": "6min",
+      "debt": "6min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "design"
+      ],
+      "creationDate": "2026-03-08T02:32:03+0000",
+      "updateDate": "2026-03-15T04:59:28+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "DISTINCT",
+      "cleanCodeAttributeCategory": "ADAPTABLE",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "HIGH"
+        }
+      ],
+      "issueStatus": "OPEN",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W8IP-CYkGMXdFHn",
+      "rule": "go:S1192",
+      "severity": "CRITICAL",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "line": 43,
+      "hash": "8552f25269997a866d4c7018ae622f78",
+      "textRange": {
+        "startLine": 43,
+        "endLine": 43,
+        "startOffset": 24,
+        "endOffset": 42
+      },
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
+              "textRange": {
+                "startLine": 120,
+                "endLine": 120,
+                "startOffset": 24,
+                "endOffset": 42
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
+              "textRange": {
+                "startLine": 176,
+                "endLine": 176,
+                "startOffset": 24,
+                "endOffset": 42
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
+              "textRange": {
+                "startLine": 424,
+                "endLine": 424,
+                "startOffset": 24,
+                "endOffset": 42
+              },
+              "msg": "Duplication"
+            }
+          ]
+        }
+      ],
+      "status": "OPEN",
+      "message": "Define a constant instead of duplicating this literal \"application/json\" 4 times.",
+      "effort": "8min",
+      "debt": "8min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "design"
+      ],
+      "creationDate": "2026-03-08T02:32:03+0000",
+      "updateDate": "2026-03-15T04:59:28+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "DISTINCT",
+      "cleanCodeAttributeCategory": "ADAPTABLE",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "HIGH"
+        }
+      ],
+      "issueStatus": "OPEN",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W8IP-CYkGMXdFHp",
+      "rule": "go:S1192",
+      "severity": "CRITICAL",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "line": 43,
+      "hash": "8552f25269997a866d4c7018ae622f78",
+      "textRange": {
+        "startLine": 43,
+        "endLine": 43,
+        "startOffset": 8,
+        "endOffset": 22
+      },
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
+              "textRange": {
+                "startLine": 120,
+                "endLine": 120,
+                "startOffset": 8,
+                "endOffset": 22
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
+              "textRange": {
+                "startLine": 176,
+                "endLine": 176,
+                "startOffset": 8,
+                "endOffset": 22
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
+              "textRange": {
+                "startLine": 424,
+                "endLine": 424,
+                "startOffset": 8,
+                "endOffset": 22
+              },
+              "msg": "Duplication"
+            }
+          ]
+        }
+      ],
+      "status": "OPEN",
+      "message": "Define a constant instead of duplicating this literal \"Content-Type\" 4 times.",
+      "effort": "8min",
+      "debt": "8min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "design"
+      ],
+      "creationDate": "2026-03-08T02:32:03+0000",
+      "updateDate": "2026-03-15T04:59:28+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "DISTINCT",
+      "cleanCodeAttributeCategory": "ADAPTABLE",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "HIGH"
+        }
+      ],
+      "issueStatus": "OPEN",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W7xP-CYkGMXdFHa",
+      "rule": "godre:S8193",
+      "severity": "MINOR",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/investment.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "hash": "095102cbe5fb8a18e71bf567e0e5e0d4",
+      "textRange": {
+        "startLine": 157,
+        "endLine": 157,
+        "startOffset": 4,
+        "endOffset": 7
+      },
+      "flows": [],
+      "resolution": "FIXED",
+      "status": "CLOSED",
+      "message": "Remove this unnecessary variable declaration and use the expression directly in the condition.",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "go-idiom",
+        "readability"
+      ],
+      "creationDate": "2026-03-05T04:34:26+0000",
+      "updateDate": "2026-03-22T09:13:31+0000",
+      "closeDate": "2026-03-22T09:13:31+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "CLEAR",
+      "cleanCodeAttributeCategory": "INTENTIONAL",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "LOW"
+        }
+      ],
+      "issueStatus": "FIXED",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W7xP-CYkGMXdFHb",
+      "rule": "godre:S8193",
+      "severity": "MINOR",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/investment.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "hash": "095102cbe5fb8a18e71bf567e0e5e0d4",
+      "textRange": {
+        "startLine": 242,
+        "endLine": 242,
+        "startOffset": 4,
+        "endOffset": 7
+      },
+      "flows": [],
+      "resolution": "FIXED",
+      "status": "CLOSED",
+      "message": "Remove this unnecessary variable declaration and use the expression directly in the condition.",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "go-idiom",
+        "readability"
+      ],
+      "creationDate": "2026-03-05T04:34:26+0000",
+      "updateDate": "2026-03-22T09:13:31+0000",
+      "closeDate": "2026-03-22T09:13:31+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "CLEAR",
+      "cleanCodeAttributeCategory": "INTENTIONAL",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "LOW"
+        }
+      ],
+      "issueStatus": "FIXED",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W7pP-CYkGMXdFHZ",
+      "rule": "go:S1192",
+      "severity": "CRITICAL",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "line": 146,
+      "hash": "c3dda39b17c4ddcd4fdcfb648670a36b",
+      "textRange": {
+        "startLine": 146,
+        "endLine": 146,
+        "startOffset": 15,
+        "endOffset": 43
+      },
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+              "textRange": {
+                "startLine": 354,
+                "endLine": 354,
+                "startOffset": 15,
+                "endOffset": 43
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+              "textRange": {
+                "startLine": 426,
+                "endLine": 426,
+                "startOffset": 15,
+                "endOffset": 43
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+              "textRange": {
+                "startLine": 522,
+                "endLine": 522,
+                "startOffset": 15,
+                "endOffset": 43
+              },
+              "msg": "Duplication"
+            }
+          ]
+        }
+      ],
+      "status": "OPEN",
+      "message": "Define a constant instead of duplicating this literal \"Transaction ID is required\" 4 times.",
+      "effort": "8min",
+      "debt": "8min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "design"
+      ],
+      "creationDate": "2026-03-04T07:05:51+0000",
+      "updateDate": "2026-03-15T04:59:28+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "DISTINCT",
+      "cleanCodeAttributeCategory": "ADAPTABLE",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "HIGH"
+        }
+      ],
+      "issueStatus": "OPEN",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W7pP-CYkGMXdFHS",
+      "rule": "godre:S8193",
+      "severity": "MINOR",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "hash": "16790e7453101ca357ed6f73de39e1ae",
+      "textRange": {
+        "startLine": 198,
+        "endLine": 198,
+        "startOffset": 4,
+        "endOffset": 7
+      },
+      "flows": [],
+      "resolution": "FIXED",
+      "status": "CLOSED",
+      "message": "Remove this unnecessary variable declaration and use the expression directly in the condition.",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "go-idiom",
+        "readability"
+      ],
+      "creationDate": "2026-03-04T07:05:51+0000",
+      "updateDate": "2026-03-22T09:13:31+0000",
+      "closeDate": "2026-03-22T09:13:31+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "CLEAR",
+      "cleanCodeAttributeCategory": "INTENTIONAL",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "LOW"
+        }
+      ],
+      "issueStatus": "FIXED",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W7pP-CYkGMXdFHW",
+      "rule": "go:S1192",
+      "severity": "CRITICAL",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "line": 202,
+      "hash": "9c74ab4ac40cadb1fe7c95a37209760b",
+      "textRange": {
+        "startLine": 202,
+        "endLine": 202,
+        "startOffset": 15,
+        "endOffset": 37
+      },
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+              "textRange": {
+                "startLine": 290,
+                "endLine": 290,
+                "startOffset": 15,
+                "endOffset": 37
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+              "textRange": {
+                "startLine": 363,
+                "endLine": 363,
+                "startOffset": 15,
+                "endOffset": 37
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+              "textRange": {
+                "startLine": 562,
+                "endLine": 562,
+                "startOffset": 15,
+                "endOffset": 37
+              },
+              "msg": "Duplication"
+            }
+          ]
+        }
+      ],
+      "status": "OPEN",
+      "message": "Define a constant instead of duplicating this literal \"Invalid request body\" 4 times.",
+      "effort": "8min",
+      "debt": "8min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "design"
+      ],
+      "creationDate": "2026-03-04T07:05:51+0000",
+      "updateDate": "2026-03-15T04:59:28+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "DISTINCT",
+      "cleanCodeAttributeCategory": "ADAPTABLE",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "HIGH"
+        }
+      ],
+      "issueStatus": "OPEN",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W7pP-CYkGMXdFHT",
+      "rule": "godre:S8193",
+      "severity": "MINOR",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "hash": "16790e7453101ca357ed6f73de39e1ae",
+      "textRange": {
+        "startLine": 286,
+        "endLine": 286,
+        "startOffset": 4,
+        "endOffset": 7
+      },
+      "flows": [],
+      "resolution": "FIXED",
+      "status": "CLOSED",
+      "message": "Remove this unnecessary variable declaration and use the expression directly in the condition.",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "go-idiom",
+        "readability"
+      ],
+      "creationDate": "2026-03-04T07:05:51+0000",
+      "updateDate": "2026-03-22T09:13:31+0000",
+      "closeDate": "2026-03-22T09:13:31+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "CLEAR",
+      "cleanCodeAttributeCategory": "INTENTIONAL",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "LOW"
+        }
+      ],
+      "issueStatus": "FIXED",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W7pP-CYkGMXdFHU",
+      "rule": "godre:S8193",
+      "severity": "MINOR",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "hash": "16790e7453101ca357ed6f73de39e1ae",
+      "textRange": {
+        "startLine": 359,
+        "endLine": 359,
+        "startOffset": 4,
+        "endOffset": 7
+      },
+      "flows": [],
+      "resolution": "FIXED",
+      "status": "CLOSED",
+      "message": "Remove this unnecessary variable declaration and use the expression directly in the condition.",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "go-idiom",
+        "readability"
+      ],
+      "creationDate": "2026-03-04T07:05:51+0000",
+      "updateDate": "2026-03-22T09:13:31+0000",
+      "closeDate": "2026-03-22T09:13:31+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "CLEAR",
+      "cleanCodeAttributeCategory": "INTENTIONAL",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "LOW"
+        }
+      ],
+      "issueStatus": "FIXED",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W7pP-CYkGMXdFHV",
+      "rule": "godre:S8193",
+      "severity": "MINOR",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "hash": "16790e7453101ca357ed6f73de39e1ae",
+      "textRange": {
+        "startLine": 558,
+        "endLine": 558,
+        "startOffset": 4,
+        "endOffset": 7
+      },
+      "flows": [],
+      "resolution": "FIXED",
+      "status": "CLOSED",
+      "message": "Remove this unnecessary variable declaration and use the expression directly in the condition.",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "go-idiom",
+        "readability"
+      ],
+      "creationDate": "2026-03-04T07:05:51+0000",
+      "updateDate": "2026-03-22T09:13:31+0000",
+      "closeDate": "2026-03-22T09:13:31+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "CLEAR",
+      "cleanCodeAttributeCategory": "INTENTIONAL",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "LOW"
+        }
+      ],
+      "issueStatus": "FIXED",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W8IP-CYkGMXdFHo",
+      "rule": "go:S1192",
+      "severity": "CRITICAL",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "line": 168,
+      "hash": "0145a2de7483ae857a639f277ab7a0b0",
+      "textRange": {
+        "startLine": 168,
+        "endLine": 168,
+        "startOffset": 15,
+        "endOffset": 38
+      },
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
+              "textRange": {
+                "startLine": 285,
+                "endLine": 285,
+                "startOffset": 15,
+                "endOffset": 38
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
+              "textRange": {
+                "startLine": 382,
+                "endLine": 382,
+                "startOffset": 15,
+                "endOffset": 38
+              },
+              "msg": "Duplication"
+            }
+          ]
+        }
+      ],
+      "status": "OPEN",
+      "message": "Define a constant instead of duplicating this literal \"Wallet ID is required\" 3 times.",
+      "effort": "6min",
+      "debt": "6min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "design"
+      ],
+      "creationDate": "2026-03-04T04:41:20+0000",
+      "updateDate": "2026-03-15T04:59:28+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "DISTINCT",
+      "cleanCodeAttributeCategory": "ADAPTABLE",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "HIGH"
+        }
+      ],
+      "issueStatus": "OPEN",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W8IP-CYkGMXdFHl",
+      "rule": "godre:S8193",
+      "severity": "MINOR",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "hash": "16790e7453101ca357ed6f73de39e1ae",
+      "textRange": {
+        "startLine": 220,
+        "endLine": 220,
+        "startOffset": 4,
+        "endOffset": 7
+      },
+      "flows": [],
+      "resolution": "FIXED",
+      "status": "CLOSED",
+      "message": "Remove this unnecessary variable declaration and use the expression directly in the condition.",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "go-idiom",
+        "readability"
+      ],
+      "creationDate": "2026-03-04T04:41:20+0000",
+      "updateDate": "2026-03-22T09:13:31+0000",
+      "closeDate": "2026-03-22T09:13:31+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "CLEAR",
+      "cleanCodeAttributeCategory": "INTENTIONAL",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "LOW"
+        }
+      ],
+      "issueStatus": "FIXED",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W8IP-CYkGMXdFHm",
+      "rule": "godre:S8193",
+      "severity": "MINOR",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "hash": "16790e7453101ca357ed6f73de39e1ae",
+      "textRange": {
+        "startLine": 290,
+        "endLine": 290,
+        "startOffset": 4,
+        "endOffset": 7
+      },
+      "flows": [],
+      "resolution": "FIXED",
+      "status": "CLOSED",
+      "message": "Remove this unnecessary variable declaration and use the expression directly in the condition.",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "go-idiom",
+        "readability"
+      ],
+      "creationDate": "2026-03-04T04:41:20+0000",
+      "updateDate": "2026-03-22T09:13:31+0000",
+      "closeDate": "2026-03-22T09:13:31+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "CLEAR",
+      "cleanCodeAttributeCategory": "INTENTIONAL",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "LOW"
+        }
+      ],
+      "issueStatus": "FIXED",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W8RP-CYkGMXdFHq",
+      "rule": "go:S3776",
+      "severity": "CRITICAL",
+      "component": "aurify-backend_Aurify-Web-BFF:config/log/logrus.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "hash": "e0810db1a60306c6c22caabb1d0233df",
+      "textRange": {
+        "startLine": 21,
+        "endLine": 21,
+        "startOffset": 31,
+        "endOffset": 37
+      },
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:config/log/logrus.go",
+              "textRange": {
+                "startLine": 23,
+                "endLine": 23,
+                "startOffset": 1,
+                "endOffset": 3
+              },
+              "msg": "+1"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:config/log/logrus.go",
+              "textRange": {
+                "startLine": 25,
+                "endLine": 25,
+                "startOffset": 3,
+                "endOffset": 7
+              },
+              "msg": "+1"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:config/log/logrus.go",
+              "textRange": {
+                "startLine": 32,
+                "endLine": 32,
+                "startOffset": 1,
+                "endOffset": 3
+              },
+              "msg": "+1"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:config/log/logrus.go",
+              "textRange": {
+                "startLine": 33,
+                "endLine": 33,
+                "startOffset": 2,
+                "endOffset": 8
+              },
+              "msg": "+2 (incl 1 for nesting)"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:config/log/logrus.go",
+              "textRange": {
+                "startLine": 52,
+                "endLine": 52,
+                "startOffset": 1,
+                "endOffset": 3
+              },
+              "msg": "+1"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:config/log/logrus.go",
+              "textRange": {
+                "startLine": 54,
+                "endLine": 54,
+                "startOffset": 3,
+                "endOffset": 7
+              },
+              "msg": "+1"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:config/log/logrus.go",
+              "textRange": {
+                "startLine": 58,
+                "endLine": 58,
+                "startOffset": 1,
+                "endOffset": 3
+              },
+              "msg": "+1"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:config/log/logrus.go",
+              "textRange": {
+                "startLine": 61,
+                "endLine": 61,
+                "startOffset": 2,
+                "endOffset": 5
+              },
+              "msg": "+2 (incl 1 for nesting)"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:config/log/logrus.go",
+              "textRange": {
+                "startLine": 62,
+                "endLine": 62,
+                "startOffset": 3,
+                "endOffset": 5
+              },
+              "msg": "+3 (incl 2 for nesting)"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:config/log/logrus.go",
+              "textRange": {
+                "startLine": 66,
+                "endLine": 66,
+                "startOffset": 3,
+                "endOffset": 9
+              },
+              "msg": "+3 (incl 2 for nesting)"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:config/log/logrus.go",
+              "textRange": {
+                "startLine": 68,
+                "endLine": 68,
+                "startOffset": 4,
+                "endOffset": 6
+              },
+              "msg": "+4 (incl 3 for nesting)"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:config/log/logrus.go",
+              "textRange": {
+                "startLine": 70,
+                "endLine": 70,
+                "startOffset": 6,
+                "endOffset": 10
+              },
+              "msg": "+1"
+            }
+          ]
+        }
+      ],
+      "resolution": "FIXED",
+      "status": "CLOSED",
+      "message": "Refactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.",
+      "effort": "11min",
+      "debt": "11min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "brain-overload"
+      ],
+      "creationDate": "2026-03-02T05:45:50+0000",
+      "updateDate": "2026-03-24T02:18:04+0000",
+      "closeDate": "2026-03-24T02:18:04+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "FOCUSED",
+      "cleanCodeAttributeCategory": "ADAPTABLE",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "HIGH"
+        }
+      ],
+      "issueStatus": "FIXED",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W8AP-CYkGMXdFHf",
+      "rule": "godre:S8193",
+      "severity": "MINOR",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "hash": "16790e7453101ca357ed6f73de39e1ae",
+      "textRange": {
+        "startLine": 39,
+        "endLine": 39,
+        "startOffset": 4,
+        "endOffset": 7
+      },
+      "flows": [],
+      "resolution": "FIXED",
+      "status": "CLOSED",
+      "message": "Remove this unnecessary variable declaration and use the expression directly in the condition.",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "go-idiom",
+        "readability"
+      ],
+      "creationDate": "2026-03-02T05:45:50+0000",
+      "updateDate": "2026-03-22T09:13:31+0000",
+      "closeDate": "2026-03-22T09:13:31+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "CLEAR",
+      "cleanCodeAttributeCategory": "INTENTIONAL",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "LOW"
+        }
+      ],
+      "issueStatus": "FIXED",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W8AP-CYkGMXdFHj",
+      "rule": "go:S1192",
+      "severity": "CRITICAL",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "line": 43,
+      "hash": "9c74ab4ac40cadb1fe7c95a37209760b",
+      "textRange": {
+        "startLine": 43,
+        "endLine": 43,
+        "startOffset": 15,
+        "endOffset": 37
+      },
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+              "textRange": {
+                "startLine": 119,
+                "endLine": 119,
+                "startOffset": 15,
+                "endOffset": 37
+              },
+              "msg": "Duplication"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+              "textRange": {
+                "startLine": 199,
+                "endLine": 199,
+                "startOffset": 15,
+                "endOffset": 37
+              },
+              "msg": "Duplication"
+            }
+          ]
+        }
+      ],
+      "status": "OPEN",
+      "message": "Define a constant instead of duplicating this literal \"Invalid request body\" 3 times.",
+      "effort": "6min",
+      "debt": "6min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "design"
+      ],
+      "creationDate": "2026-03-02T05:45:50+0000",
+      "updateDate": "2026-03-15T04:59:28+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "DISTINCT",
+      "cleanCodeAttributeCategory": "ADAPTABLE",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "HIGH"
+        }
+      ],
+      "issueStatus": "OPEN",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W8AP-CYkGMXdFHg",
+      "rule": "godre:S8193",
+      "severity": "MINOR",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "hash": "16790e7453101ca357ed6f73de39e1ae",
+      "textRange": {
+        "startLine": 115,
+        "endLine": 115,
+        "startOffset": 4,
+        "endOffset": 7
+      },
+      "flows": [],
+      "resolution": "FIXED",
+      "status": "CLOSED",
+      "message": "Remove this unnecessary variable declaration and use the expression directly in the condition.",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "go-idiom",
+        "readability"
+      ],
+      "creationDate": "2026-03-02T05:45:50+0000",
+      "updateDate": "2026-03-22T09:13:31+0000",
+      "closeDate": "2026-03-22T09:13:31+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "CLEAR",
+      "cleanCodeAttributeCategory": "INTENTIONAL",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "LOW"
+        }
+      ],
+      "issueStatus": "FIXED",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    },
+    {
+      "key": "AZzv3W8AP-CYkGMXdFHh",
+      "rule": "godre:S8193",
+      "severity": "MINOR",
+      "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+      "project": "aurify-backend_Aurify-Web-BFF",
+      "hash": "16790e7453101ca357ed6f73de39e1ae",
+      "textRange": {
+        "startLine": 195,
+        "endLine": 195,
+        "startOffset": 4,
+        "endOffset": 7
+      },
+      "flows": [],
+      "resolution": "FIXED",
+      "status": "CLOSED",
+      "message": "Remove this unnecessary variable declaration and use the expression directly in the condition.",
+      "effort": "5min",
+      "debt": "5min",
+      "author": "madmifta77@gmail.com",
+      "tags": [
+        "go-idiom",
+        "readability"
+      ],
+      "creationDate": "2026-03-02T05:45:50+0000",
+      "updateDate": "2026-03-22T09:13:31+0000",
+      "closeDate": "2026-03-22T09:13:31+0000",
+      "type": "CODE_SMELL",
+      "organization": "aurify-backend",
+      "cleanCodeAttribute": "CLEAR",
+      "cleanCodeAttributeCategory": "INTENTIONAL",
+      "impacts": [
+        {
+          "softwareQuality": "MAINTAINABILITY",
+          "severity": "LOW"
+        }
+      ],
+      "issueStatus": "FIXED",
+      "projectName": "Aurify-Web-BFF",
+      "internalTags": []
+    }
+  ],
+  "components": [
+    {
+      "organization": "aurify-backend",
+      "key": "aurify-backend_Aurify-Web-BFF:config/log/logrus.go",
+      "uuid": "AZzv3WkuP-CYkGMXdFHL",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "logrus.go",
+      "longName": "config/log/logrus.go",
+      "path": "config/log/logrus.go"
+    },
+    {
+      "organization": "aurify-backend",
+      "key": "aurify-backend_Aurify-Web-BFF:Dockerfile",
+      "uuid": "AZzv3WkuP-CYkGMXdFHO",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "Dockerfile",
+      "longName": "Dockerfile",
+      "path": "Dockerfile"
+    },
+    {
+      "organization": "aurify-backend",
+      "key": "aurify-backend_Aurify-Web-BFF",
+      "uuid": "AZzmI4rrx7FiZgjBazrj",
+      "enabled": true,
+      "qualifier": "TRK",
+      "name": "Aurify-Web-BFF",
+      "longName": "Aurify-Web-BFF"
+    },
+    {
+      "organization": "aurify-backend",
+      "key": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
+      "uuid": "AZzv3WkuP-CYkGMXdFG3",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "transaction.go",
+      "longName": "interface/http/handler/transaction.go",
+      "path": "interface/http/handler/transaction.go"
+    },
+    {
+      "organization": "aurify-backend",
+      "key": "aurify-backend_Aurify-Web-BFF:internal/utils/grpc_error.go",
+      "uuid": "AZzv3WkuP-CYkGMXdFGb",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "grpc_error.go",
+      "longName": "internal/utils/grpc_error.go",
+      "path": "internal/utils/grpc_error.go"
+    },
+    {
+      "organization": "aurify-backend",
+      "key": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
+      "uuid": "AZzv3WkuP-CYkGMXdFG7",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "wallet.go",
+      "longName": "interface/http/handler/wallet.go",
+      "path": "interface/http/handler/wallet.go"
+    },
+    {
+      "organization": "aurify-backend",
+      "key": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
+      "uuid": "AZzv3WkuP-CYkGMXdFG6",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "dashboard.go",
+      "longName": "interface/http/handler/dashboard.go",
+      "path": "interface/http/handler/dashboard.go"
+    },
+    {
+      "organization": "aurify-backend",
+      "key": "aurify-backend_Aurify-Web-BFF:interface/http/handler/cache.go",
+      "uuid": "AZzv3WkuP-CYkGMXdFG5",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "cache.go",
+      "longName": "interface/http/handler/cache.go",
+      "path": "interface/http/handler/cache.go"
+    },
+    {
+      "organization": "aurify-backend",
+      "key": "aurify-backend_Aurify-Web-BFF:interface/http/handler/investment.go",
+      "uuid": "AZzv3WkuP-CYkGMXdFG4",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "investment.go",
+      "longName": "interface/http/handler/investment.go",
+      "path": "interface/http/handler/investment.go"
+    }
+  ],
+  "organizations": [
+    {
+      "key": "aurify-backend",
+      "name": "Aurify Backend"
+    }
+  ],
+  "facets": []
+}
