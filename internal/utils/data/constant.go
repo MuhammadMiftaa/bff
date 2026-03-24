@@ -12,3 +12,18 @@ var (
 	CATEGORY_ID_FUND_TRANSFER_CASH_IN  = "00000000-0000-0000-0000-000000000011"
 	CATEGORY_ID_FUND_TRANSFER_CASH_OUT = "00000000-0000-0000-0000-000000000012"
 )
+
+// HTTP header constants (go:S1192 — avoid duplicating string literals)
+const (
+	ContentTypeHeader = "Content-Type"
+	ContentTypeJSON   = "application/json"
+)
+
+// Common HTTP error message constants (go:S1192)
+const (
+	ErrInvalidRequestBody  = "Invalid request body"
+	ErrTransactionRequired = "Transaction ID is required"
+	ErrWalletRequired      = "Wallet ID is required"
+	ErrInvestmentRequired  = "Investment ID is required"
+	ErrAttachmentRequired  = "Attachment ID is required"
+)

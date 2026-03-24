@@ -64,7 +64,7 @@ func (h *transactionHandler) GetUserTransactions(c *fiber.Ctx) error {
 
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 
@@ -143,7 +143,7 @@ func (h *transactionHandler) GetTransactionByID(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Transaction ID is required",
+			Message:    data.ErrTransactionRequired,
 		})
 	}
 
@@ -151,7 +151,7 @@ func (h *transactionHandler) GetTransactionByID(c *fiber.Ctx) error {
 
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 
@@ -199,7 +199,7 @@ func (h *transactionHandler) CreateTransaction(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Invalid request body",
+			Message:    data.ErrInvalidRequestBody,
 		})
 	}
 
@@ -287,7 +287,7 @@ func (h *transactionHandler) CreateFundTransfer(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Invalid request body",
+			Message:    data.ErrInvalidRequestBody,
 		})
 	}
 
@@ -351,7 +351,7 @@ func (h *transactionHandler) UpdateTransaction(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Transaction ID is required",
+			Message:    data.ErrTransactionRequired,
 		})
 	}
 
@@ -360,7 +360,7 @@ func (h *transactionHandler) UpdateTransaction(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Invalid request body",
+			Message:    data.ErrInvalidRequestBody,
 		})
 	}
 
@@ -423,7 +423,7 @@ func (h *transactionHandler) DeleteTransaction(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Transaction ID is required",
+			Message:    data.ErrTransactionRequired,
 		})
 	}
 
@@ -469,7 +469,7 @@ func (h *transactionHandler) GetCategories(c *fiber.Ctx) error {
 
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 
@@ -519,7 +519,7 @@ func (h *transactionHandler) GetAttachmentsByTransaction(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Transaction ID is required",
+			Message:    data.ErrTransactionRequired,
 		})
 	}
 
@@ -559,7 +559,7 @@ func (h *transactionHandler) CreateAttachment(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Invalid request body",
+			Message:    data.ErrInvalidRequestBody,
 		})
 	}
 
@@ -614,7 +614,7 @@ func (h *transactionHandler) DeleteAttachment(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Attachment ID is required",
+			Message:    data.ErrAttachmentRequired,
 		})
 	}
 

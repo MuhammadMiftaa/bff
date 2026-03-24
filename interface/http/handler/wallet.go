@@ -40,7 +40,7 @@ func (h *walletHandler) GetUserWallets(c *fiber.Ctx) error {
 
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 
@@ -117,7 +117,7 @@ func (h *walletHandler) GetWalletSummary(c *fiber.Ctx) error {
 
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 
@@ -165,7 +165,7 @@ func (h *walletHandler) GetWalletByID(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Wallet ID is required",
+			Message:    data.ErrWalletRequired,
 		})
 	}
 
@@ -173,7 +173,7 @@ func (h *walletHandler) GetWalletByID(c *fiber.Ctx) error {
 
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 
@@ -221,7 +221,7 @@ func (h *walletHandler) CreateWallet(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Invalid request body",
+			Message:    data.ErrInvalidRequestBody,
 		})
 	}
 
@@ -282,7 +282,7 @@ func (h *walletHandler) UpdateWallet(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Wallet ID is required",
+			Message:    data.ErrWalletRequired,
 		})
 	}
 
@@ -291,7 +291,7 @@ func (h *walletHandler) UpdateWallet(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Invalid request body",
+			Message:    data.ErrInvalidRequestBody,
 		})
 	}
 
@@ -379,7 +379,7 @@ func (h *walletHandler) DeleteWallet(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Wallet ID is required",
+			Message:    data.ErrWalletRequired,
 		})
 	}
 
@@ -421,7 +421,7 @@ func (h *walletHandler) GetWalletTypes(c *fiber.Ctx) error {
 
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 
@@ -460,17 +460,10 @@ func (h *walletHandler) GetWalletTypes(c *fiber.Ctx) error {
 
 // invalidateWalletCaches clears wallet-related and dashboard-related caches for a user.
 func (h *walletHandler) invalidateWalletCaches(ctx context.Context, userID string) {
-	patterns := []string{
-		cache.WalletAllPattern(userID),
-		cache.DashboardWallets(userID),
-		cache.DashboardNetWorth(userID),
-	}
 	// Delete exact keys first
 	_ = h.cache.Delete(ctx, cache.DashboardWallets(userID), cache.DashboardNetWorth(userID))
-	// Then pattern-based
-	for _, p := range patterns[:1] { // only wallet:* needs pattern scan
-		if err := h.cache.DeleteByPattern(ctx, p); err != nil {
-			logger.Warn(data.LogCacheInvalidateFail, map[string]any{"service": data.CacheService, "pattern": p, "error": err.Error()})
-		}
+	// Then pattern-based for wallet:user:*
+	if err := h.cache.DeleteByPattern(ctx, cache.WalletAllPattern(userID)); err != nil {
+		logger.Warn(data.LogCacheInvalidateFail, map[string]any{"service": data.CacheService, "pattern": cache.WalletAllPattern(userID), "error": err.Error()})
 	}
 }

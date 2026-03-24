@@ -51,7 +51,7 @@ func (h *investmentHandler) GetUserInvestments(c *fiber.Ctx) error {
 
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 
@@ -99,7 +99,7 @@ func (h *investmentHandler) GetInvestmentDetail(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Investment ID is required",
+			Message:    data.ErrInvestmentRequired,
 		})
 	}
 
@@ -107,7 +107,7 @@ func (h *investmentHandler) GetInvestmentDetail(c *fiber.Ctx) error {
 
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 
@@ -158,7 +158,7 @@ func (h *investmentHandler) CreateInvestment(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Invalid request body",
+			Message:    data.ErrInvalidRequestBody,
 		})
 	}
 
@@ -243,7 +243,7 @@ func (h *investmentHandler) SellInvestment(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Invalid request body",
+			Message:    data.ErrInvalidRequestBody,
 		})
 	}
 
@@ -293,7 +293,7 @@ func (h *investmentHandler) GetInvestmentSummary(c *fiber.Ctx) error {
 
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 
@@ -340,7 +340,7 @@ func (h *investmentHandler) GetAssetCodes(c *fiber.Ctx) error {
 
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 

@@ -25,6 +25,9 @@ type grpcErrorRule struct {
 	message string
 }
 
+// msgServiceUnavailable is extracted to avoid duplicating the literal (go:S1192).
+const msgServiceUnavailable = "Service is temporarily unavailable"
+
 // grpcCodeToHTTP maps gRPC status codes to HTTP status codes.
 var grpcCodeToHTTP = map[codes.Code]int{
 	codes.OK:                 fiber.StatusOK,
@@ -98,8 +101,8 @@ var errorRules = []grpcErrorRule{
 	{pattern: "context canceled", httpStatus: fiber.StatusRequestTimeout, message: "Request was cancelled"},
 
 	// ── Connectivity ──
-	{pattern: "connection refused", httpStatus: fiber.StatusServiceUnavailable, message: "Service is temporarily unavailable"},
-	{pattern: "unavailable", httpStatus: fiber.StatusServiceUnavailable, message: "Service is temporarily unavailable"},
+	{pattern: "connection refused", httpStatus: fiber.StatusServiceUnavailable, message: msgServiceUnavailable},
+	{pattern: "unavailable", httpStatus: fiber.StatusServiceUnavailable, message: msgServiceUnavailable},
 }
 
 // MapGRPCError extracts a clean HTTP status code and user-facing message
@@ -180,7 +183,7 @@ func fallbackMessage(code codes.Code) string {
 	case codes.Unimplemented:
 		return "This feature is not yet available"
 	case codes.Unavailable:
-		return "Service is temporarily unavailable"
+		return msgServiceUnavailable
 	case codes.DeadlineExceeded:
 		return "Request timed out. Please try again"
 	default:

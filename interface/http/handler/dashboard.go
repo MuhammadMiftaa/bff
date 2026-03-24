@@ -40,7 +40,7 @@ func (h *dashboardHandler) GetUserFinancialSummary(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Invalid request body",
+			Message:    data.ErrInvalidRequestBody,
 		})
 	}
 
@@ -55,7 +55,7 @@ func (h *dashboardHandler) GetUserFinancialSummary(c *fiber.Ctx) error {
 	// Try cache
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 
@@ -116,7 +116,7 @@ func (h *dashboardHandler) GetUserBalance(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Invalid request body",
+			Message:    data.ErrInvalidRequestBody,
 		})
 	}
 
@@ -135,7 +135,7 @@ func (h *dashboardHandler) GetUserBalance(c *fiber.Ctx) error {
 	// Try cache
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 
@@ -196,7 +196,7 @@ func (h *dashboardHandler) GetUserTransactions(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Invalid request body",
+			Message:    data.ErrInvalidRequestBody,
 		})
 	}
 
@@ -206,7 +206,7 @@ func (h *dashboardHandler) GetUserTransactions(c *fiber.Ctx) error {
 
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 
@@ -288,7 +288,7 @@ func (h *dashboardHandler) GetUserNetWorthComposition(c *fiber.Ctx) error {
 
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 
@@ -343,7 +343,7 @@ func (h *dashboardHandler) GetUserWallets(c *fiber.Ctx) error {
 
 	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
 		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
-		c.Set("Content-Type", "application/json")
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
 		return c.Send(cached)
 	}
 
