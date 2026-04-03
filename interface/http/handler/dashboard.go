@@ -380,3 +380,98 @@ func (h *dashboardHandler) GetUserWallets(c *fiber.Ctx) error {
 
 	return c.JSON(resp)
 }
+
+// GetCategoryTransactions — POST /dashboard/category-transactions
+func (h *dashboardHandler) GetCategoryTransactions(c *fiber.Ctx) error {
+	userData := c.Locals("user_data").(dto.UserData)
+
+	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
+
+	var req dto.GetCategoryTransactionsRequest
+	if err := c.BodyParser(&req); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
+			Status:     false,
+			StatusCode: 400,
+			Message:    data.ErrInvalidRequestBody,
+		})
+	}
+
+	// Build cache key
+	dateOptHash := cache.HashParams(fmt.Sprintf("%+v", req.DateOption))
+	cacheKey := cache.DashboardCategoryTransactions(userData.ID, req.WalletID, req.CategoryID, dateOptHash)
+
+	if cached, err := h.cache.Get(c.UserContext(), cacheKey); err == nil && cached != nil {
+		logger.Debug(data.LogCacheHit, map[string]any{"service": data.CacheService, "key": cacheKey})
+		c.Set(data.ContentTypeHeader, data.ContentTypeJSON)
+		return c.Send(cached)
+	}
+
+	grpcReq := &dpb.GetCategoryTransactionsRequest{
+		UserId:     userData.ID,
+		WalletId:   req.WalletID,
+		CategoryId: req.CategoryID,
+	}
+
+	dateOpt := &dpb.DateOption{}
+	hasDateOpt := false
+	if req.DateOption.Date != nil {
+		dateOpt.Date = *req.DateOption.Date
+		hasDateOpt = true
+	}
+	if req.DateOption.Year != nil {
+		dateOpt.Year = int32(*req.DateOption.Year)
+		hasDateOpt = true
+	}
+	if req.DateOption.Month != nil {
+		dateOpt.Month = int32(*req.DateOption.Month)
+		hasDateOpt = true
+	}
+	if req.DateOption.Day != nil {
+		dateOpt.Day = int32(*req.DateOption.Day)
+		hasDateOpt = true
+	}
+	if req.DateOption.Range != nil {
+		dateOpt.Range = &dpb.DateRange{
+			Start: req.DateOption.Range.Start,
+			End:   req.DateOption.Range.End,
+		}
+		hasDateOpt = true
+	}
+	if hasDateOpt {
+		grpcReq.DateOption = dateOpt
+	}
+
+	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
+
+	result, err := h.dashboard.GetCategoryTransactions(ctx, grpcReq)
+	if err != nil {
+		logger.Error(data.LogGetCategoryTransactionsFailed, map[string]any{
+			"service":     data.DashboardService,
+			"request_id":  requestID,
+			"user_id":     userData.ID,
+			"category_id": req.CategoryID,
+			"error":       err.Error(),
+		})
+		grpcErr := utils.MapGRPCError(err)
+		return c.Status(grpcErr.HTTPStatus).JSON(dto.APIResponse{
+			Status:     false,
+			StatusCode: grpcErr.HTTPStatus,
+			Message:    grpcErr.Message,
+		})
+	}
+
+	resp := dto.APIResponse{
+		Status:     true,
+		StatusCode: 200,
+		Message:    "Category transactions retrieved successfully",
+		Data:       result.GetTransactions(),
+	}
+
+	if b, err := json.Marshal(resp); err == nil {
+		if err := h.cache.Set(c.UserContext(), cacheKey, b, cache.TTLMedium); err != nil {
+			logger.Warn(data.LogCacheSetFailed, map[string]any{"service": data.CacheService, "key": cacheKey, "error": err.Error()})
+		}
+	}
+
+	return c.JSON(resp)
+}

@@ -25,16 +25,16 @@ const (
 	LogHTTPServerShutdownFailed = "http_server_shutdown_failed"
 
 	// grpc client
-	LogGRPCClientSetupStarted    = "grpc_client_setup_started"
-	LogGRPCClientSetupSuccess    = "grpc_client_setup_success"
-	LogGRPCClientSetupFailed     = "grpc_client_setup_failed"
-	LogGRPCClientClosed          = "grpc_client_closed"
-	LogGRPCClientShutdownFailed  = "grpc_client_shutdown_failed"
+	LogGRPCClientSetupStarted   = "grpc_client_setup_started"
+	LogGRPCClientSetupSuccess   = "grpc_client_setup_success"
+	LogGRPCClientSetupFailed    = "grpc_client_setup_failed"
+	LogGRPCClientClosed         = "grpc_client_closed"
+	LogGRPCClientShutdownFailed = "grpc_client_shutdown_failed"
 
 	// cache / redis
-	LogRedisSetupFailed  = "redis_setup_failed"
-	LogRedisSetupSuccess = "redis_setup_success"
-	LogRedisCloseFailed  = "redis_close_failed" 
+	LogRedisSetupFailed    = "redis_setup_failed"
+	LogRedisSetupSuccess   = "redis_setup_success"
+	LogRedisCloseFailed    = "redis_close_failed"
 	LogCacheHit            = "cache_hit"
 	LogCacheMiss           = "cache_miss"
 	LogCacheSetFailed      = "cache_set_failed"
@@ -48,11 +48,12 @@ const (
 	LogShutdownCompletedWithErrors = "shutdown_completed_with_errors"
 
 	// dashboard handler
-	LogGetFinancialSummaryFailed    = "get_financial_summary_failed"
-	LogGetUserBalanceFailed         = "get_user_balance_failed"
-	LogGetUserTransactionsFailed    = "get_user_transactions_failed"
-	LogGetNetWorthCompositionFailed = "get_net_worth_composition_failed"
-	LogGetUserWalletsFailed         = "get_user_wallets_failed"
+	LogGetFinancialSummaryFailed     = "get_financial_summary_failed"
+	LogGetUserBalanceFailed          = "get_user_balance_failed"
+	LogGetUserTransactionsFailed     = "get_user_transactions_failed"
+	LogGetNetWorthCompositionFailed  = "get_net_worth_composition_failed"
+	LogGetUserWalletsFailed          = "get_user_wallets_failed"
+	LogGetCategoryTransactionsFailed = "get_category_transactions_failed"
 
 	// wallet handler
 	LogGetWalletsFailed       = "get_wallets_failed"

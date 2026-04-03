@@ -13,6 +13,7 @@ type DashboardClient interface {
 	GetUserFinancialSummary(ctx context.Context, req *dpb.GetUserFinancialSummaryRequest) (*dpb.GetUserFinancialSummaryResponse, error)
 	GetUserNetWorthComposition(ctx context.Context, req *dpb.GetUserNetWorthCompositionRequest) (*dpb.NetWorthComposition, error)
 	GetUserWallets(ctx context.Context, userID string) (*dpb.GetUserWalletsResponse, error)
+	GetCategoryTransactions(ctx context.Context, req *dpb.GetCategoryTransactionsRequest) (*dpb.GetCategoryTransactionsResponse, error)
 }
 
 type dashboardClientImpl struct {
@@ -53,4 +54,10 @@ func (d *dashboardClientImpl) GetUserWallets(ctx context.Context, userID string)
 	ctx, cancel := context.WithTimeout(ctx, 15*time.Second)
 	defer cancel()
 	return d.client.GetUserWallets(ctx, &dpb.UserID{Id: userID})
+}
+
+func (d *dashboardClientImpl) GetCategoryTransactions(ctx context.Context, req *dpb.GetCategoryTransactionsRequest) (*dpb.GetCategoryTransactionsResponse, error) {
+	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
+	defer cancel()
+	return d.client.GetCategoryTransactions(ctx, req)
 }

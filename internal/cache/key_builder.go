@@ -30,6 +30,10 @@ func DashboardTransactions(userID, walletID, dateOptionHash string) string {
 	return fmt.Sprintf("dashboard:%s:transactions:%s:%s", userID, walletID, dateOptionHash)
 }
 
+func DashboardCategoryTransactions(userID, walletID, categoryID, dateOptionHash string) string {
+	return fmt.Sprintf("dashboard:%s:category-transactions:%s:%s:%s", userID, walletID, categoryID, dateOptionHash)
+}
+
 func DashboardNetWorth(userID string) string {
 	return fmt.Sprintf("dashboard:%s:net-worth", userID)
 }

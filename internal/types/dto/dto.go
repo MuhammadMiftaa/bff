@@ -40,6 +40,12 @@ type GetUserTransactionsRequest struct {
 	DateOption DateOption `json:"dateOption"`
 }
 
+type GetCategoryTransactionsRequest struct {
+	WalletID   string     `json:"walletID,omitempty"`
+	CategoryID string     `json:"categoryID" validate:"required"`
+	DateOption DateOption `json:"dateOption"`
+}
+
 type GetUserBalanceRequest struct {
 	WalletID    string     `json:"walletID,omitempty"`
 	Aggregation string     `json:"aggregation" validate:"required,oneof=daily weekly monthly"`

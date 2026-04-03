@@ -20,4 +20,5 @@ func DashboardRoutes(app *fiber.App, dc grpcClient.DashboardClient, c cache.Cach
 	dashboard.Post("/balance", h.GetUserBalance)
 	dashboard.Post("/transactions", h.GetUserTransactions)
 	dashboard.Post("/net-worth", h.GetUserNetWorthComposition)
+	dashboard.Post("/category-transactions", h.GetCategoryTransactions)
 }
