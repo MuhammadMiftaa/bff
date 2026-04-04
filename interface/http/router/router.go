@@ -60,6 +60,7 @@ func SetupHTTPServer(
 	routes.InvestmentRoutes(app, ic, wc, c)
 	routes.ProfileRoutes(app, pc, c)
 	routes.CacheRoutes(app, c)
+	routes.BudgetRoutes(app, tc, c)
 
 	return app
 }

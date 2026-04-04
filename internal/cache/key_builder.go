@@ -120,6 +120,16 @@ func InvestmentAllPattern(userID string) string {
 	return fmt.Sprintf("inv:%s:*", userID)
 }
 
+// ── Budget Keys ──
+
+func BudgetList(userID, period string) string {
+	return fmt.Sprintf("budget:%s:list:%s", userID, period)
+}
+
+func BudgetAllPattern(userID string) string {
+	return fmt.Sprintf("budget:%s:*", userID)
+}
+
 // ── Helper ──
 
 // HashParams produces a short deterministic hash from an arbitrary string (e.g. query params).

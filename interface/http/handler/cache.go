@@ -49,6 +49,10 @@ func invalidationsForService(svc, userID string) []invalidation {
 			{kind: "pattern", subject: cache.InvestmentAllPattern(userID)},
 			{kind: "key", subject: cache.InvestmentAssetCodes()},
 		}
+	case "budget":
+		return []invalidation{
+			{kind: "pattern", subject: cache.BudgetAllPattern(userID)},
+		}
 	default:
 		return nil
 	}
@@ -89,13 +93,13 @@ func (h *cacheHandler) RefreshCache(c *fiber.Ctx) error {
 	requestID, _ := c.Locals(data.REQUEST_ID_LOCAL_KEY).(string)
 	service := c.Query("service")
 
-	allServices := []string{"dashboard", "wallet", "transaction", "investment"}
+	allServices := []string{"dashboard", "wallet", "transaction", "investment", "budget"}
 
 	if service != "" && !isValidService(service, allServices) {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.APIResponse{
 			Status:     false,
 			StatusCode: 400,
-			Message:    "Invalid service. Must be one of: dashboard, wallet, transaction, investment",
+			Message:    "Invalid service. Must be one of: dashboard, wallet, transaction, investment, budget",
 		})
 	}
 

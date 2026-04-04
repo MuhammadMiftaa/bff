@@ -275,6 +275,10 @@ func (h *dashboardHandler) GetUserTransactions(c *fiber.Ctx) error {
 		}
 	}
 
+	logger.Debug("Response ", map[string]any{
+		"response": resp,
+	})
+
 	return c.JSON(resp)
 }
 

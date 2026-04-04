@@ -12,6 +12,7 @@ const (
 	TransactionService = "transaction"
 	InvestmentService  = "investment"
 	ProfileService     = "profile"
+	BudgetService      = "budget"
 )
 
 // Message field logging constants
@@ -93,4 +94,16 @@ const (
 	LogUploadPhotoFailed    = "upload_photo_failed"
 	LogDeletePhotoSuccess   = "delete_photo_success"
 	LogDeletePhotoFailed    = "delete_photo_failed"
+
+	// budget handler
+	LogGetBudgetsFailed    = "get_budgets_failed"
+	LogGetBudgetsSuccess   = "get_budgets_success"
+	LogCreateBudgetFailed  = "create_budget_failed"
+	LogCreateBudgetSuccess = "create_budget_success"
+	LogUpdateBudgetFailed  = "update_budget_failed"
+	LogUpdateBudgetSuccess = "update_budget_success"
+	LogDeleteBudgetFailed  = "delete_budget_failed"
+	LogDeleteBudgetSuccess = "delete_budget_success"
+	LogResetBudgetFailed   = "reset_budget_failed"
+	LogResetBudgetSuccess  = "reset_budget_success"
 )

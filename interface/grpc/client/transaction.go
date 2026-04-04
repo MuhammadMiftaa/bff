@@ -18,6 +18,12 @@ type TransactionClient interface {
 	GetAttachmentsByTransactionID(ctx context.Context, transactionID string) (*tpb.GetAttachmentsResponse, error)
 	CreateAttachment(ctx context.Context, req *tpb.CreateAttachmentRequest) (*tpb.Attachment, error)
 	DeleteAttachment(ctx context.Context, attachmentID string) (*tpb.Attachment, error)
+	// Budget operations
+	GetBudgets(ctx context.Context, period string) (*tpb.GetBudgetsResponse, error)
+	CreateBudget(ctx context.Context, req *tpb.CreateBudgetRequest) (*tpb.Budget, error)
+	UpdateBudget(ctx context.Context, req *tpb.UpdateBudgetRequest) (*tpb.Budget, error)
+	DeleteBudget(ctx context.Context, budgetID string) (*tpb.Budget, error)
+	ResetBudget(ctx context.Context, budgetID string) (*tpb.Budget, error)
 }
 
 type transactionClientImpl struct {
@@ -88,4 +94,36 @@ func (t *transactionClientImpl) DeleteAttachment(ctx context.Context, attachment
 	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
 	return t.client.DeleteAttachment(ctx, &tpb.AttachmentID{Id: attachmentID})
+}
+
+// ── Budget operations ──
+
+func (t *transactionClientImpl) GetBudgets(ctx context.Context, period string) (*tpb.GetBudgetsResponse, error) {
+	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
+	return t.client.GetBudgets(ctx, &tpb.GetBudgetsRequest{Period: period})
+}
+
+func (t *transactionClientImpl) CreateBudget(ctx context.Context, req *tpb.CreateBudgetRequest) (*tpb.Budget, error) {
+	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
+	return t.client.CreateBudget(ctx, req)
+}
+
+func (t *transactionClientImpl) UpdateBudget(ctx context.Context, req *tpb.UpdateBudgetRequest) (*tpb.Budget, error) {
+	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
+	return t.client.UpdateBudget(ctx, req)
+}
+
+func (t *transactionClientImpl) DeleteBudget(ctx context.Context, budgetID string) (*tpb.Budget, error) {
+	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
+	return t.client.DeleteBudget(ctx, &tpb.BudgetID{Id: budgetID})
+}
+
+func (t *transactionClientImpl) ResetBudget(ctx context.Context, budgetID string) (*tpb.Budget, error) {
+	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
+	return t.client.ResetBudget(ctx, &tpb.BudgetID{Id: budgetID})
 }

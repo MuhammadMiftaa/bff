@@ -16,7 +16,6 @@
       "severity": "CRITICAL",
       "component": "aurify-backend_Aurify-Web-BFF:internal/utils/grpc_error.go",
       "project": "aurify-backend_Aurify-Web-BFF",
-      "line": 101,
       "hash": "3d7fd0f0e765e8552deef79d8a1e08f1",
       "textRange": {
         "startLine": 101,
@@ -54,7 +53,8 @@
           ]
         }
       ],
-      "status": "OPEN",
+      "resolution": "FIXED",
+      "status": "CLOSED",
       "message": "Define a constant instead of duplicating this literal \"Service is temporarily unavailable\" 3 times.",
       "effort": "6min",
       "debt": "6min",
@@ -63,7 +63,8 @@
         "design"
       ],
       "creationDate": "2026-03-12T04:09:32+0000",
-      "updateDate": "2026-03-15T04:59:28+0000",
+      "updateDate": "2026-03-24T13:33:12+0000",
+      "closeDate": "2026-03-24T13:33:12+0000",
       "type": "CODE_SMELL",
       "organization": "aurify-backend",
       "cleanCodeAttribute": "DISTINCT",
@@ -74,7 +75,7 @@
           "severity": "HIGH"
         }
       ],
-      "issueStatus": "OPEN",
+      "issueStatus": "FIXED",
       "projectName": "Aurify-Web-BFF",
       "internalTags": []
     },
@@ -84,7 +85,6 @@
       "severity": "MAJOR",
       "component": "aurify-backend_Aurify-Web-BFF:Dockerfile",
       "project": "aurify-backend_Aurify-Web-BFF",
-      "line": 12,
       "hash": "72cc33f7273acdc5b24e7ebaa1860886",
       "textRange": {
         "startLine": 12,
@@ -93,14 +93,16 @@
         "endOffset": 18
       },
       "flows": [],
-      "status": "OPEN",
+      "resolution": "FIXED",
+      "status": "CLOSED",
       "message": "Use a specific version tag for the image.",
       "effort": "5min",
       "debt": "5min",
       "author": "madmifta77@gmail.com",
       "tags": [],
       "creationDate": "2026-03-08T13:37:48+0000",
-      "updateDate": "2026-03-15T04:59:28+0000",
+      "updateDate": "2026-03-24T13:33:12+0000",
+      "closeDate": "2026-03-24T13:33:12+0000",
       "type": "CODE_SMELL",
       "organization": "aurify-backend",
       "cleanCodeAttribute": "LOGICAL",
@@ -111,7 +113,7 @@
           "severity": "MEDIUM"
         }
       ],
-      "issueStatus": "OPEN",
+      "issueStatus": "FIXED",
       "projectName": "Aurify-Web-BFF",
       "internalTags": []
     },
@@ -121,7 +123,6 @@
       "severity": "CRITICAL",
       "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/cache.go",
       "project": "aurify-backend_Aurify-Web-BFF",
-      "line": 30,
       "hash": "5ae86ece1f08fd1340eeb9ec96a9ad18",
       "textRange": {
         "startLine": 30,
@@ -299,7 +300,8 @@
           ]
         }
       ],
-      "status": "OPEN",
+      "resolution": "FIXED",
+      "status": "CLOSED",
       "message": "Refactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.",
       "effort": "9min",
       "debt": "9min",
@@ -308,7 +310,8 @@
         "brain-overload"
       ],
       "creationDate": "2026-03-08T02:40:58+0000",
-      "updateDate": "2026-03-15T04:59:28+0000",
+      "updateDate": "2026-03-24T13:33:12+0000",
+      "closeDate": "2026-03-24T13:33:12+0000",
       "type": "CODE_SMELL",
       "organization": "aurify-backend",
       "cleanCodeAttribute": "FOCUSED",
@@ -319,7 +322,7 @@
           "severity": "HIGH"
         }
       ],
-      "issueStatus": "OPEN",
+      "issueStatus": "FIXED",
       "projectName": "Aurify-Web-BFF",
       "internalTags": []
     },
@@ -329,7 +332,6 @@
       "severity": "CRITICAL",
       "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
       "project": "aurify-backend_Aurify-Web-BFF",
-      "line": 58,
       "hash": "8552f25269997a866d4c7018ae622f78",
       "textRange": {
         "startLine": 58,
@@ -395,7 +397,8 @@
           ]
         }
       ],
-      "status": "OPEN",
+      "resolution": "FIXED",
+      "status": "CLOSED",
       "message": "Define a constant instead of duplicating this literal \"application/json\" 5 times.",
       "effort": "10min",
       "debt": "10min",
@@ -404,7 +407,8 @@
         "design"
       ],
       "creationDate": "2026-03-08T02:32:03+0000",
-      "updateDate": "2026-03-15T04:59:28+0000",
+      "updateDate": "2026-03-24T13:33:12+0000",
+      "closeDate": "2026-03-24T13:33:12+0000",
       "type": "CODE_SMELL",
       "organization": "aurify-backend",
       "cleanCodeAttribute": "DISTINCT",
@@ -415,7 +419,7 @@
           "severity": "HIGH"
         }
       ],
-      "issueStatus": "OPEN",
+      "issueStatus": "FIXED",
       "projectName": "Aurify-Web-BFF",
       "internalTags": []
     },
@@ -425,7 +429,6 @@
       "severity": "CRITICAL",
       "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
       "project": "aurify-backend_Aurify-Web-BFF",
-      "line": 58,
       "hash": "8552f25269997a866d4c7018ae622f78",
       "textRange": {
         "startLine": 58,
@@ -491,7 +494,8 @@
           ]
         }
       ],
-      "status": "OPEN",
+      "resolution": "FIXED",
+      "status": "CLOSED",
       "message": "Define a constant instead of duplicating this literal \"Content-Type\" 5 times.",
       "effort": "10min",
       "debt": "10min",
@@ -500,7 +504,8 @@
         "design"
       ],
       "creationDate": "2026-03-08T02:32:03+0000",
-      "updateDate": "2026-03-15T04:59:28+0000",
+      "updateDate": "2026-03-24T13:33:12+0000",
+      "closeDate": "2026-03-24T13:33:12+0000",
       "type": "CODE_SMELL",
       "organization": "aurify-backend",
       "cleanCodeAttribute": "DISTINCT",
@@ -511,7 +516,7 @@
           "severity": "HIGH"
         }
       ],
-      "issueStatus": "OPEN",
+      "issueStatus": "FIXED",
       "projectName": "Aurify-Web-BFF",
       "internalTags": []
     },
@@ -521,7 +526,6 @@
       "severity": "CRITICAL",
       "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/investment.go",
       "project": "aurify-backend_Aurify-Web-BFF",
-      "line": 54,
       "hash": "8552f25269997a866d4c7018ae622f78",
       "textRange": {
         "startLine": 54,
@@ -573,7 +577,8 @@
           ]
         }
       ],
-      "status": "OPEN",
+      "resolution": "FIXED",
+      "status": "CLOSED",
       "message": "Define a constant instead of duplicating this literal \"application/json\" 4 times.",
       "effort": "8min",
       "debt": "8min",
@@ -582,7 +587,8 @@
         "design"
       ],
       "creationDate": "2026-03-08T02:32:03+0000",
-      "updateDate": "2026-03-15T04:59:28+0000",
+      "updateDate": "2026-03-24T13:33:12+0000",
+      "closeDate": "2026-03-24T13:33:12+0000",
       "type": "CODE_SMELL",
       "organization": "aurify-backend",
       "cleanCodeAttribute": "DISTINCT",
@@ -593,7 +599,7 @@
           "severity": "HIGH"
         }
       ],
-      "issueStatus": "OPEN",
+      "issueStatus": "FIXED",
       "projectName": "Aurify-Web-BFF",
       "internalTags": []
     },
@@ -603,7 +609,6 @@
       "severity": "CRITICAL",
       "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/investment.go",
       "project": "aurify-backend_Aurify-Web-BFF",
-      "line": 54,
       "hash": "8552f25269997a866d4c7018ae622f78",
       "textRange": {
         "startLine": 54,
@@ -655,7 +660,8 @@
           ]
         }
       ],
-      "status": "OPEN",
+      "resolution": "FIXED",
+      "status": "CLOSED",
       "message": "Define a constant instead of duplicating this literal \"Content-Type\" 4 times.",
       "effort": "8min",
       "debt": "8min",
@@ -664,7 +670,8 @@
         "design"
       ],
       "creationDate": "2026-03-08T02:32:03+0000",
-      "updateDate": "2026-03-15T04:59:28+0000",
+      "updateDate": "2026-03-24T13:33:12+0000",
+      "closeDate": "2026-03-24T13:33:12+0000",
       "type": "CODE_SMELL",
       "organization": "aurify-backend",
       "cleanCodeAttribute": "DISTINCT",
@@ -675,7 +682,7 @@
           "severity": "HIGH"
         }
       ],
-      "issueStatus": "OPEN",
+      "issueStatus": "FIXED",
       "projectName": "Aurify-Web-BFF",
       "internalTags": []
     },
@@ -685,7 +692,6 @@
       "severity": "CRITICAL",
       "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
       "project": "aurify-backend_Aurify-Web-BFF",
-      "line": 67,
       "hash": "8552f25269997a866d4c7018ae622f78",
       "textRange": {
         "startLine": 67,
@@ -723,7 +729,8 @@
           ]
         }
       ],
-      "status": "OPEN",
+      "resolution": "FIXED",
+      "status": "CLOSED",
       "message": "Define a constant instead of duplicating this literal \"Content-Type\" 3 times.",
       "effort": "6min",
       "debt": "6min",
@@ -732,7 +739,8 @@
         "design"
       ],
       "creationDate": "2026-03-08T02:32:03+0000",
-      "updateDate": "2026-03-15T04:59:28+0000",
+      "updateDate": "2026-03-24T13:33:12+0000",
+      "closeDate": "2026-03-24T13:33:12+0000",
       "type": "CODE_SMELL",
       "organization": "aurify-backend",
       "cleanCodeAttribute": "DISTINCT",
@@ -743,7 +751,7 @@
           "severity": "HIGH"
         }
       ],
-      "issueStatus": "OPEN",
+      "issueStatus": "FIXED",
       "projectName": "Aurify-Web-BFF",
       "internalTags": []
     },
@@ -753,7 +761,6 @@
       "severity": "CRITICAL",
       "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
       "project": "aurify-backend_Aurify-Web-BFF",
-      "line": 67,
       "hash": "8552f25269997a866d4c7018ae622f78",
       "textRange": {
         "startLine": 67,
@@ -791,7 +798,8 @@
           ]
         }
       ],
-      "status": "OPEN",
+      "resolution": "FIXED",
+      "status": "CLOSED",
       "message": "Define a constant instead of duplicating this literal \"application/json\" 3 times.",
       "effort": "6min",
       "debt": "6min",
@@ -800,7 +808,8 @@
         "design"
       ],
       "creationDate": "2026-03-08T02:32:03+0000",
-      "updateDate": "2026-03-15T04:59:28+0000",
+      "updateDate": "2026-03-24T13:33:12+0000",
+      "closeDate": "2026-03-24T13:33:12+0000",
       "type": "CODE_SMELL",
       "organization": "aurify-backend",
       "cleanCodeAttribute": "DISTINCT",
@@ -811,7 +820,7 @@
           "severity": "HIGH"
         }
       ],
-      "issueStatus": "OPEN",
+      "issueStatus": "FIXED",
       "projectName": "Aurify-Web-BFF",
       "internalTags": []
     },
@@ -821,7 +830,6 @@
       "severity": "CRITICAL",
       "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
       "project": "aurify-backend_Aurify-Web-BFF",
-      "line": 43,
       "hash": "8552f25269997a866d4c7018ae622f78",
       "textRange": {
         "startLine": 43,
@@ -873,7 +881,8 @@
           ]
         }
       ],
-      "status": "OPEN",
+      "resolution": "FIXED",
+      "status": "CLOSED",
       "message": "Define a constant instead of duplicating this literal \"application/json\" 4 times.",
       "effort": "8min",
       "debt": "8min",
@@ -882,7 +891,8 @@
         "design"
       ],
       "creationDate": "2026-03-08T02:32:03+0000",
-      "updateDate": "2026-03-15T04:59:28+0000",
+      "updateDate": "2026-03-24T13:33:12+0000",
+      "closeDate": "2026-03-24T13:33:12+0000",
       "type": "CODE_SMELL",
       "organization": "aurify-backend",
       "cleanCodeAttribute": "DISTINCT",
@@ -893,7 +903,7 @@
           "severity": "HIGH"
         }
       ],
-      "issueStatus": "OPEN",
+      "issueStatus": "FIXED",
       "projectName": "Aurify-Web-BFF",
       "internalTags": []
     },
@@ -903,7 +913,6 @@
       "severity": "CRITICAL",
       "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
       "project": "aurify-backend_Aurify-Web-BFF",
-      "line": 43,
       "hash": "8552f25269997a866d4c7018ae622f78",
       "textRange": {
         "startLine": 43,
@@ -955,7 +964,8 @@
           ]
         }
       ],
-      "status": "OPEN",
+      "resolution": "FIXED",
+      "status": "CLOSED",
       "message": "Define a constant instead of duplicating this literal \"Content-Type\" 4 times.",
       "effort": "8min",
       "debt": "8min",
@@ -964,7 +974,8 @@
         "design"
       ],
       "creationDate": "2026-03-08T02:32:03+0000",
-      "updateDate": "2026-03-15T04:59:28+0000",
+      "updateDate": "2026-03-24T13:33:12+0000",
+      "closeDate": "2026-03-24T13:33:12+0000",
       "type": "CODE_SMELL",
       "organization": "aurify-backend",
       "cleanCodeAttribute": "DISTINCT",
@@ -975,7 +986,7 @@
           "severity": "HIGH"
         }
       ],
-      "issueStatus": "OPEN",
+      "issueStatus": "FIXED",
       "projectName": "Aurify-Web-BFF",
       "internalTags": []
     },
@@ -1067,7 +1078,6 @@
       "severity": "CRITICAL",
       "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
       "project": "aurify-backend_Aurify-Web-BFF",
-      "line": 146,
       "hash": "c3dda39b17c4ddcd4fdcfb648670a36b",
       "textRange": {
         "startLine": 146,
@@ -1119,7 +1129,8 @@
           ]
         }
       ],
-      "status": "OPEN",
+      "resolution": "FIXED",
+      "status": "CLOSED",
       "message": "Define a constant instead of duplicating this literal \"Transaction ID is required\" 4 times.",
       "effort": "8min",
       "debt": "8min",
@@ -1128,7 +1139,8 @@
         "design"
       ],
       "creationDate": "2026-03-04T07:05:51+0000",
-      "updateDate": "2026-03-15T04:59:28+0000",
+      "updateDate": "2026-03-24T13:33:12+0000",
+      "closeDate": "2026-03-24T13:33:12+0000",
       "type": "CODE_SMELL",
       "organization": "aurify-backend",
       "cleanCodeAttribute": "DISTINCT",
@@ -1139,7 +1151,7 @@
           "severity": "HIGH"
         }
       ],
-      "issueStatus": "OPEN",
+      "issueStatus": "FIXED",
       "projectName": "Aurify-Web-BFF",
       "internalTags": []
     },
@@ -1190,7 +1202,6 @@
       "severity": "CRITICAL",
       "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/transaction.go",
       "project": "aurify-backend_Aurify-Web-BFF",
-      "line": 202,
       "hash": "9c74ab4ac40cadb1fe7c95a37209760b",
       "textRange": {
         "startLine": 202,
@@ -1242,7 +1253,8 @@
           ]
         }
       ],
-      "status": "OPEN",
+      "resolution": "FIXED",
+      "status": "CLOSED",
       "message": "Define a constant instead of duplicating this literal \"Invalid request body\" 4 times.",
       "effort": "8min",
       "debt": "8min",
@@ -1251,7 +1263,8 @@
         "design"
       ],
       "creationDate": "2026-03-04T07:05:51+0000",
-      "updateDate": "2026-03-15T04:59:28+0000",
+      "updateDate": "2026-03-24T13:33:12+0000",
+      "closeDate": "2026-03-24T13:33:12+0000",
       "type": "CODE_SMELL",
       "organization": "aurify-backend",
       "cleanCodeAttribute": "DISTINCT",
@@ -1262,7 +1275,7 @@
           "severity": "HIGH"
         }
       ],
-      "issueStatus": "OPEN",
+      "issueStatus": "FIXED",
       "projectName": "Aurify-Web-BFF",
       "internalTags": []
     },
@@ -1395,7 +1408,6 @@
       "severity": "CRITICAL",
       "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/wallet.go",
       "project": "aurify-backend_Aurify-Web-BFF",
-      "line": 168,
       "hash": "0145a2de7483ae857a639f277ab7a0b0",
       "textRange": {
         "startLine": 168,
@@ -1433,7 +1445,8 @@
           ]
         }
       ],
-      "status": "OPEN",
+      "resolution": "FIXED",
+      "status": "CLOSED",
       "message": "Define a constant instead of duplicating this literal \"Wallet ID is required\" 3 times.",
       "effort": "6min",
       "debt": "6min",
@@ -1442,7 +1455,8 @@
         "design"
       ],
       "creationDate": "2026-03-04T04:41:20+0000",
-      "updateDate": "2026-03-15T04:59:28+0000",
+      "updateDate": "2026-03-24T13:33:12+0000",
+      "closeDate": "2026-03-24T13:33:12+0000",
       "type": "CODE_SMELL",
       "organization": "aurify-backend",
       "cleanCodeAttribute": "DISTINCT",
@@ -1453,7 +1467,7 @@
           "severity": "HIGH"
         }
       ],
-      "issueStatus": "OPEN",
+      "issueStatus": "FIXED",
       "projectName": "Aurify-Web-BFF",
       "internalTags": []
     },
@@ -1795,7 +1809,6 @@
       "severity": "CRITICAL",
       "component": "aurify-backend_Aurify-Web-BFF:interface/http/handler/dashboard.go",
       "project": "aurify-backend_Aurify-Web-BFF",
-      "line": 43,
       "hash": "9c74ab4ac40cadb1fe7c95a37209760b",
       "textRange": {
         "startLine": 43,
@@ -1833,7 +1846,8 @@
           ]
         }
       ],
-      "status": "OPEN",
+      "resolution": "FIXED",
+      "status": "CLOSED",
       "message": "Define a constant instead of duplicating this literal \"Invalid request body\" 3 times.",
       "effort": "6min",
       "debt": "6min",
@@ -1842,7 +1856,8 @@
         "design"
       ],
       "creationDate": "2026-03-02T05:45:50+0000",
-      "updateDate": "2026-03-15T04:59:28+0000",
+      "updateDate": "2026-03-24T13:33:12+0000",
+      "closeDate": "2026-03-24T13:33:12+0000",
       "type": "CODE_SMELL",
       "organization": "aurify-backend",
       "cleanCodeAttribute": "DISTINCT",
@@ -1853,7 +1868,7 @@
           "severity": "HIGH"
         }
       ],
-      "issueStatus": "OPEN",
+      "issueStatus": "FIXED",
       "projectName": "Aurify-Web-BFF",
       "internalTags": []
     },

@@ -160,3 +160,17 @@ type UploadPhotoResponse struct {
 	PhotoURL string `json:"photo_url"`
 	Message  string `json:"message"`
 }
+
+// ── Budget HTTP Request DTOs (from frontend) ──
+
+type CreateBudgetRequest struct {
+	Scope        string  `json:"scope" validate:"required,oneof=overall category"`
+	CategoryID   string  `json:"category_id,omitempty"`
+	WalletID     string  `json:"wallet_id,omitempty"`
+	MonthlyLimit float64 `json:"monthly_limit" validate:"required,gt=0"`
+	Period       string  `json:"period" validate:"required"`
+}
+
+type UpdateBudgetRequest struct {
+	MonthlyLimit float64 `json:"monthly_limit" validate:"required,gt=0"`
+}
